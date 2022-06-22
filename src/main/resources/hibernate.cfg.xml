@@ -32,5 +32,7 @@
       
       <property name = "hibernate.show_sql">true</property>
       <!-- List of XML mapping files -->
+      <mapping class = "com.revature.models.User"></mapping>
+      <mapping class = "com.revature.models.Reimbursement"></mapping>
    </session-factory>
 </hibernate-configuration>
