@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+	integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+	crossorigin="anonymous">
+<title>Registration</title>
+</head>
+<body>
+	<div class="mask d-flex align-items-center h-100">
+		<div class="container h-100">
+			<div
+				class="row d-flex justify-content-center align-items-center h-100">
+				<div class="col-12 col-md-9 col-lg-7 col-xl-6">
+					<div class="card" style="border-radius: 15px;">
+						<div class="card-body p-5">
+							<h2 class="text-uppercase text-center mb-5">Create an
+								account</h2>
+							<form action="register" method="POST"
+								enctype="multipart/form-data">
+								<div class="mb-3">
+									<label class="form-label" for="firstname">First Name</label> <input
+										class="form-control" type="text" id="firstname"
+										name="firstname" required>
+								</div>
+								<div class="mb-3">
+									<label class="form-label" for="lastname">Last Name</label> <input
+										class="form-control" type="text" id="lastname" name="lastname"
+										required>
+								</div>
+								<div class="mb-3">
+									<label class="form-label" for="username">Username</label> <input
+										class="form-control" type="text" id="username" name="username"
+										required>
+								</div>
+
+								<div class="mb-3">
+									<label class="form-label" for="password">Password</label> <input
+										class="form-control" type="password" id="password"
+										name="password" required>
+								</div>
+								<div class="mb-3">
+									<button class="btn btn-success">Register</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+
