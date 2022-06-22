@@ -26,6 +26,8 @@ public class UserDao {
 		// capture the pk returned when the session method save() is called
 		int pk = (int) ses.save(u);
 		
+		tx.commit();
+		
 		// return the pk
 		return pk;
 		

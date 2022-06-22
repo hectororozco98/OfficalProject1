@@ -14,11 +14,17 @@ import javax.servlet.http.HttpServletResponse;
 public class FrontController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		final String URI = request.getRequestURI().replace("/OfficialProject1/", "");
+		final String URI = request.getRequestURI().replace("/official-project-one/", "");
 		
 		switch(URI) {
 		case "login":
 			RequestHelper.processLogin(request, response);
+			break;
+		case "employees":
+			RequestHelper.processEmployees(request, response);
+			break;
+		case "register":
+			RequestHelper.processRegistration(request, response);
 			break;
 		default:
 			break;
