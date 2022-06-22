@@ -23,11 +23,11 @@ public class Reimbursement {
 	private double amount;
 	
 	@Column(nullable=false)
-	@Temporal(TemporalType.TIMESTAMP)
+	//@Temporal(TemporalType.DATE)
 	private String submitted;
 	
 	@Column()
-	@Temporal(TemporalType.TIMESTAMP)
+	//@Temporal(TemporalType.DATE)
 	private String resolved;
 	
 	@Column()

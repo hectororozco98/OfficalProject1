@@ -46,7 +46,7 @@ public class RequestHelper {
 		
 		String email = request.getParameter("email");
 		
-		User u = new User(username, password, firstName, lastName, email);
+		User u = new User(firstName, lastName, username, password, email);
 		
 		int pk = uServ.register(u);
 		

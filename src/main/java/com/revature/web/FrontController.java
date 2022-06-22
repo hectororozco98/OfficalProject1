@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class FrontController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		final String URI = request.getRequestURI().replace("/OfficialProject1/", "");
+		final String URI = request.getRequestURI().replace("/official-project-one/", "");
 		
 		switch(URI) {
 		case "login":
