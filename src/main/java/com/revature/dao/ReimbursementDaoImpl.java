@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.revature.models.Reimbursement;
+import com.revature.util.HibernateUtil;
 
 public class ReimbursementDaoImpl implements IReimbursementDao {
 

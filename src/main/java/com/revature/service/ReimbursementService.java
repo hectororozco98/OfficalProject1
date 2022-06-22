@@ -12,9 +12,9 @@ public class ReimbursementService {
 	
 	
 	//For Review
-	public ReimbursementService(ReimbursementDaoImpl rdaoImpl) {
+	public ReimbursementService(IReimbursementDao rdao) {
 		
-		this.rdao = rdaoImpl;
+		this.rdao = rdao;
 	}
 	
 	public Reimbursement createReimbursement(double amount, String description, int authorId) {

@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.revature.models.Employee;
+//import com.revature.models.Employee;
 import com.revature.models.User;
 import com.revature.util.HibernateUtil;
 
