@@ -28,7 +28,7 @@
       
       <property name = "hibernate.default_schema">public</property>
       
-      <property name ="hibernate.hbm2ddl.auto">create</property>
+      <property name ="hibernate.hbm2ddl.auto">update</property>
       
       <property name = "hibernate.show_sql">true</property>
       <!-- List of XML mapping files -->
