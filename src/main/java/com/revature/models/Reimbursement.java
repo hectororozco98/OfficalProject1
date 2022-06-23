@@ -3,13 +3,15 @@ package com.revature.models;
 import java.util.Objects;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="reimbursements")
@@ -43,15 +45,14 @@ public class Reimbursement {
 	private int statusId;
 	
 	//FOREIGN KEY
-	private int typeId;
+	@ManyToOne
+	private ReimbursementType typeId;
 	
 	public Reimbursement() {
-		
-		
 	}
 
 	public Reimbursement(int id, double amount, String submitted, String resolved, String description, int authorId,
-			int resolverId, int statusId, int typeId) {
+			int resolverId, int statusId, ReimbursementType typeId) {
 		super();
 		Id = id;
 		this.amount = amount;
@@ -65,7 +66,7 @@ public class Reimbursement {
 	}
 
 	public Reimbursement(double amount, String submitted, String resolved, String description, int authorId,
-			int resolverId, int statusId, int typeId) {
+			int resolverId, int statusId, ReimbursementType typeId) {
 		super();
 		this.amount = amount;
 		this.submitted = submitted;
@@ -141,11 +142,11 @@ public class Reimbursement {
 		this.statusId = statusId;
 	}
 
-	public int getTypeId() {
+	public ReimbursementType getTypeId() {
 		return typeId;
 	}
 
-	public void setTypeId(int typeId) {
+	public void setTypeId(ReimbursementType typeId) {
 		this.typeId = typeId;
 	}
 
