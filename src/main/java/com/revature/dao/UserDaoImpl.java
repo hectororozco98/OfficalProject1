@@ -9,12 +9,13 @@ import org.hibernate.Transaction;
 import com.revature.models.User;
 import com.revature.util.HibernateUtil;
 
-// servlet -> calls service --> calls dao
-public class UserDao {
+
+public class UserDaoImpl implements IUserDao {
 	
 	// CRUD methods
 	
-	// Create (think that in the service layer we'll have a REGISTER()
+	// Create
+	@Override
 	public int insert(User u) {
 		
 		// grab the session object
@@ -34,6 +35,7 @@ public class UserDao {
 	}
 	
 	// Read
+	@Override
 	public List<User> findAll() {
 		
 		// grab the session
@@ -46,12 +48,12 @@ public class UserDao {
 		return emps;
 		
 	}
-	
+	@Override
 	public boolean delete(int id) {
 		return false;
 		
 	}
-	
+	@Override
 	public boolean update(User u) {
 		return false;
 	}

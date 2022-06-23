@@ -10,12 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.dao.UserDao;
+import com.revature.dao.UserDaoImpl;
 import com.revature.models.User;
 import com.revature.service.UserService;
 
 public class RequestHelper {
-	private static UserService uServ = new UserService(new UserDao());
+
+	private static UserService uServ = new UserService(new UserDaoImpl());
+
+	
+
 	
 	private static ObjectMapper om = new ObjectMapper();
 	
