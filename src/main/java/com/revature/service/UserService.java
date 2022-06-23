@@ -3,15 +3,16 @@ package com.revature.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.revature.dao.UserDao;
+import com.revature.dao.IUserDao;
+import com.revature.dao.UserDaoImpl;
 import com.revature.models.User;
 
 public class UserService {
 	
-	private UserDao udao;
+	private IUserDao udao;
 	
 	
-	public UserService(UserDao udao) {
+	public UserService(IUserDao udao) {
 		
 		this.udao = udao;
 		
