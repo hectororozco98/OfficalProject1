@@ -1,68 +1,73 @@
 <!doctype html>
 <html lang="en">
-<head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
-	integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
-	crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+	integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
 <title>Registration</title>
-</head>
-<body>
-	<div class="mask d-flex align-items-center h-100">
-		<div class="container h-100">
-			<div
-				class="row d-flex justify-content-center align-items-center h-100">
-				<div class="col-12 col-md-9 col-lg-7 col-xl-6">
-					<div class="card" style="border-radius: 15px;">
-						<div class="card-body p-5">
-							<h2 class="text-uppercase text-center mb-5">Create an
-								account</h2>
-							<form action="register" method="POST">
-								<div class="mb-3">
-									<label class="form-label" for="firstname">First Name</label> <input
-										class="form-control" type="text" id="firstname"
-										name="firstname" required>
-								</div>
-								<div class="mb-3">
-									<label class="form-label" for="lastname">Last Name</label> <input
-										class="form-control" type="text" id="lastname" name="lastname"
-										required>
-								</div>
-								<div class="mb-3">
-
-									<label class="form-label" for="username">Username</label> <input
-										class="form-control" type="text" id="username" name="username"
-										required>
-								</div>
-
-								<div class="mb-3">
-									<label class="form-label" for="password">Password</label> <input
-										class="form-control" type="password" id="password"
-										name="password" required>
-								</div>
-
-								<div class="mb-3">
-									<label class="form-label" for="username">Email</label> <input
-										class="form-control" type="email" id="email" name="email"
-										required>
-								</div>
-
-								<div class="mb-3">
-									<button class="btn btn-success" type="submit">Register</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">Employee Reimbursement System
+			(ERS)</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav">
+				<a class="nav-link" href="index.html">Home</a>
+			</div>
+			<div class="navbar-nav ml-auto">
+				<a class="nav-link" href="index.html">Login</a> <a class="nav-link"
+					href="registration.html">Register</a> <a class="nav-link"
+					href="index.html">Logout</a>
 			</div>
 		</div>
 	</div>
+</nav>
+</head>
+<body>
+    <div class="mask d-flex align-items-center h-100">
+        <div class="container h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+              <div class="card" style="margin: 100px; border-radius: 15px;">
+                <div class="card-body p-5">
+                  <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+                    <form action="register" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label" for="firstname">First Name</label>
+                            <input class="form-control" type="text" id="firstname" name="firstname" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="lastname">Last Name</label>
+                            <input class="form-control" type="text" id="lastname" name="lastname" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="username">Username</label>
+                            <input class="form-control" type="text" id="username" name="username" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="password">Password</label>
+                            <input class="form-control" type="password" id="password" name="password" required>
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-success">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
+
+
 
 
