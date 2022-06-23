@@ -15,7 +15,11 @@ import com.revature.models.User;
 import com.revature.service.UserService;
 
 public class RequestHelper {
+
 	private static UserService uServ = new UserService(new UserDaoImpl());
+
+	
+
 	
 	private static ObjectMapper om = new ObjectMapper();
 	

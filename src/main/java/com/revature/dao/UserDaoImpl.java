@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.revature.models.Employee;
+//import com.revature.models.Employee;
 import com.revature.models.User;
 import com.revature.util.HibernateUtil;
 
@@ -26,6 +26,8 @@ public class UserDaoImpl implements IUserDao {
 		
 		// capture the pk returned when the session method save() is called
 		int pk = (int) ses.save(u);
+		
+		tx.commit();
 		
 		// return the pk
 		return pk;

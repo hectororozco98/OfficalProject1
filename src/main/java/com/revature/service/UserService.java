@@ -37,6 +37,10 @@ public class UserService {
 		
 	}
 	
+	public int register(User u) {
+		return udao.insert(u);
+	}
+	
 	
 	
 
