@@ -1,31 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+	integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+	crossorigin="anonymous">
 <title>Team 6 Project 1 App</title>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">Employee Reimbursement System
+			(ERS)</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav">
+				<a class="nav-link" href="index.html">Home</a>
+			</div>
+			<div class="navbar-nav ml-auto">
+				<a class="nav-link" href="login.html">Login</a> <a class="nav-link"
+					href="registration.html">Register</a> <a class="nav-link"
+					href="welcome.html">Logout</a>
+			</div>
+		</div>
+	</div>
+</nav>
 </head>
 <body>
 
 	<h1>Welcome to Team 6's Project 1 Application!</h1>
 
-	<form method="POST" action="login">
-
-		<label>Username</label> 
-		<input type="text" name="username" placeholder="Enter a username"> 
-		<br /> 
-		
-		<label>Password</label>
-		<input type="password" name="password" placeholder="Enter a password">
-
-		<input type="submit" value="login">
-
-	</form>
+	<p> 1. An Employee can submit a reimbursement request 
+		<br>
+		2. An Employee can view their pending reimbursement requests 
+		<br>
+		3. An Employee can view their resolved reimbursement requests 
+		<br>
+		4. An Employee can view their information
+		<br>
+		5. An Employee can update their information</p>
 	
-		<form method="GET" action = "registration.html">
-	
-		<input type="submit" value ="register">
-	
-	</form>
 
 	<form method="GET" action="employees">
 
