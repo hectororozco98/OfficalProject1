@@ -2,8 +2,15 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+	integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+	crossorigin="anonymous">
 <title>Reimbursements Page</title>
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+
+
 	<div class="container-fluid">
 		<a class="navbar-brand" href="#">Employee Reimbursement System
 			(ERS)</a>
@@ -32,26 +39,18 @@
 
 	<form action="reimbursements" method="POST">
 
-		<label>Reimbursement Amount</label> 
-		<input type="number" name="amount" placeholder="Enter a dollar amount">
-		<br /> 
-		
-		<label>Description</label>
-		<input type="text" name="description" placeholder="Enter a description"> 
-		<br />
-		
-		<label>Reimbursement Type</label>
-		<select name="reimbursement-type">
-		
+		<label>Reimbursement Amount</label> <input type="number" name="amount"
+			placeholder="Enter a dollar amount"> <br /> <label>Description</label>
+		<input type="text" name="description"
+			placeholder="Enter a description"> <br /> <label>Reimbursement
+			Type</label> <select name="reimbursement-type">
+
 			<option value="LODGING">Lodging</option>
 			<option value="TRAVEL">Travel</option>
 			<option value="FOOD">Food</option>
 			<option value="OTHER">Other</option>
-		
-		</select>
-		<br />
-		
-		<input type="submit" value="Submit Request">
+
+		</select> <br /> <input type="submit" value="Submit Request">
 
 
 	</form>
