@@ -26,11 +26,11 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	}
 
 	@Override
-	public Reimbursement findById(int i) {
+	public Reimbursement findById(int id) {
 		
 		Session ses = HibernateUtil.getSession();
 		
-		//Optional<Reimbursement> returnedReim = ses.createQuery("from reimbursements WHERE id = " + i, Reimbursement.class).stream().findFirst();
+		Optional<Reimbursement> returnedReim = ses.createQuery("from reimbursements WHERE id = " + id, Reimbursement.class).stream().findFirst();
 		
 		return null;
 	}
@@ -40,7 +40,7 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 		
 		Session ses = HibernateUtil.getSession();
 		
-		//Optional<Reimbursement> returnedReim = ses.createQuery("from reimbursements WHERE author_id = " + i, Reimbursement.class).stream().findFirst();
+		Optional<Reimbursement> returnedReim = ses.createQuery("from reimbursements WHERE author_id = " + id, Reimbursement.class).stream().findFirst();
 		
 		return null;
 	}
@@ -56,15 +56,33 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	}
 
 	@Override
-	public boolean update(Reimbursement e) {
+	public boolean update(Reimbursement r) {
 		// TODO Auto-generated method stub
-		return false;
+		
+		Session ses = HibernateUtil.getSession();
+		
+		Transaction tx = ses.beginTransaction();
+		
+		ses.update(r);
+		
+		tx.commit();
+		
+		return true;
 	}
 
 	@Override
-	public boolean delete(Reimbursement e) {
+	public boolean delete(Reimbursement r) {
 		// TODO Auto-generated method stub
-		return false;
+		
+		Session ses = HibernateUtil.getSession();
+		
+		Transaction tx = ses.beginTransaction();
+		
+		ses.delete(r);
+		
+		tx.commit();
+		
+		return true;
 	}
 
 }
