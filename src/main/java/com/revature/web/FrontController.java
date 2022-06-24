@@ -26,6 +26,9 @@ public class FrontController extends HttpServlet {
 		case "register":
 			RequestHelper.processRegistration(request, response);
 			break;
+		case "reimbursements":
+			RequestHelper.processCreateReimbursement(request, response);
+			break;
 		default:
 			break;
 		}

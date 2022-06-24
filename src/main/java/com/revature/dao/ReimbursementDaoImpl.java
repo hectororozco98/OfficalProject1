@@ -20,6 +20,8 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 		
 		int pk = (int) ses.save(r);
 		
+		tx.commit();
+		
 		return pk;
 	}
 
