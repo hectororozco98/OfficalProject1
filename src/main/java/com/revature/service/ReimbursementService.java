@@ -3,8 +3,8 @@ package com.revature.service;
 import java.util.List;
 
 import com.revature.dao.IReimbursementDao;
-import com.revature.dao.ReimbursementDaoImpl;
 import com.revature.models.Reimbursement;
+import com.revature.models.ReimbursementTypeEnum;
 
 public class ReimbursementService {
 	
@@ -17,10 +17,12 @@ public class ReimbursementService {
 		this.rdao = rdao;
 	}
 	
-	public Reimbursement createReimbursement(double amount, String description, int authorId) {
+	public int createReimbursement(Reimbursement r) {
 		
+		// Might have to make some type of check to see if there is a reimbursement with the same 
+		// information in the DB already
 		
-		return null;
+		return rdao.insert(r);
 	}
 	
 	public List<Reimbursement> getAll() {

@@ -10,13 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.dao.ReimbursementDaoImpl;
 import com.revature.dao.UserDaoImpl;
+import com.revature.models.Reimbursement;
+import com.revature.models.ReimbursementType;
+import com.revature.models.ReimbursementTypeEnum;
 import com.revature.models.User;
+import com.revature.service.ReimbursementService;
 import com.revature.service.UserService;
 
 public class RequestHelper {
 
 	private static UserService uServ = new UserService(new UserDaoImpl());
+	
+	private static ReimbursementService rServ = new ReimbursementService(new ReimbursementDaoImpl());
 
 	
 
@@ -72,7 +79,7 @@ public class RequestHelper {
 
 	}
 	
-	public static void processLogin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+	public static void processLogin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		//1. Extract the parameters from the request (username and password)
 		String username = request.getParameter("username");
 		
@@ -85,14 +92,17 @@ public class RequestHelper {
 			
 			session.setAttribute("the-user", u);
 			
-			PrintWriter out = response.getWriter();
-			response.setContentType("text/html");
+//			PrintWriter out = response.getWriter();
+//			response.setContentType("text/html");
 			
-			out.println("<h1>Welcome " + u.getFirstName() + "</h1>");
-			out.println("<h3>You have successfully logged in <h3>");
+			request.getRequestDispatcher("welcome.html").forward(request, response);
 			
-			String jsonString = om.writeValueAsString(u);
-			out.println(jsonString);
+//			out.println("<h1>Welcome " + u.getFirstName() + "</h1>");
+//			out.println("<h3>You have successfully logged in <h3>");
+//			
+//			String jsonString = om.writeValueAsString(u);
+//			out.println(jsonString);
+
 		} else {
 			PrintWriter out = response.getWriter();
 			response.setContentType("text/html");
@@ -100,8 +110,40 @@ public class RequestHelper {
 		}
 		
 		
-		//4 Alternatively you can redirect to another servlet
+		//4 Alternatively you can redirect to another servlet	
+	}
+	
+	public static void processCreateReimbursement(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
+		double amount = Double.parseDouble(request.getParameter("amount"));
 		
+		String description = request.getParameter("description");
+		
+		HttpSession session = request.getSession();
+		
+		User u = (User) session.getAttribute("the-user");
+		
+		//String type = request.getParameter("reimbursement-type");
+		ReimbursementTypeEnum typeEnum = ReimbursementTypeEnum.valueOf(request.getParameter("reimbursement-type"));
+		ReimbursementType type = new ReimbursementType(typeEnum);
+		
+		Reimbursement r = new Reimbursement(amount, "null", "null", description, u.getId(), 0, 0, type);
+		
+		int pk = rServ.createReimbursement(r);
+		
+		if (pk > 0) {
+			
+			// Not sure if we want to save this in the session
+			//session.setAttribute("reimbursement", r);
+			
+			request.getRequestDispatcher("welcome.html").forward(request, response);
+		} else {
+			PrintWriter out = response.getWriter();
+			
+			response.setContentType("text/html");
+			
+			out.println("<h1> Failed to create reimbursement request</h1>");
+			out.println("<a href=\"index.html\"");
+		}
 	}
 }

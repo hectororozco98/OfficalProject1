@@ -21,7 +21,7 @@ public class ReimbursementType {
 	@Column(name = "reim_type_id")
 	private int reim_type_id;
 	
-	@Column(nullable=false)
+	@Column(unique=true, nullable=false)
 	@Enumerated(EnumType.STRING)
 	private ReimbursementTypeEnum reim_type;
 

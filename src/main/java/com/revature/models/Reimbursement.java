@@ -2,6 +2,7 @@ package com.revature.models;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
@@ -45,7 +46,7 @@ public class Reimbursement {
 	private int statusId;
 	
 	//FOREIGN KEY
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	private ReimbursementType typeId;
 	
 	public Reimbursement() {

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Reimbursements Page</title>
+</head>
+<body>
+
+	<h1>Welcome the the Reimbursements Page</h1>
+
+
+	<form action="reimbursements" method="POST">
+
+		<label>Reimbursement Amount</label> 
+		<input type="number" name="amount" placeholder="Enter a dollar amount">
+		<br /> 
+		
+		<label>Description</label>
+		<input type="text" name="description" placeholder="Enter a description"> 
+		<br />
+		
+		<label>Reimbursement Type</label>
+		<select name="reimbursement-type">
+		
+			<option value="LODGING">Lodging</option>
+			<option value="TRAVEL">Travel</option>
+			<option value="FOOD">Food</option>
+			<option value="OTHER">Other</option>
+		
+		</select>
+		<br />
+		
+		<input type="submit" value="Submit Request">
+
+
+	</form>
+
+
+</body>
+</html>
