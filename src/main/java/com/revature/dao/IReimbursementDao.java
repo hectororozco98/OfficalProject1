@@ -1,6 +1,7 @@
 package com.revature.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.revature.models.Reimbursement;
 
@@ -10,7 +11,7 @@ public interface IReimbursementDao {
 	
 	Reimbursement findById(int i);
 	
-	Reimbursement findByAuthorId(int id);
+	List<Reimbursement> findByAuthorId(int id);
 	
 	List<Reimbursement> findAll();
 	

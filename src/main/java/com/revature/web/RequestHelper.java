@@ -2,6 +2,7 @@ package com.revature.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -145,5 +146,25 @@ public class RequestHelper {
 			out.println("<h1> Failed to create reimbursement request</h1>");
 			out.println("<a href=\"index.html\"");
 		}
+	}
+	
+	public static void processGetFiledReimbursements(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		
+		HttpSession session = request.getSession();
+		
+		User u = (User) session.getAttribute("the-user");
+		
+		response.setContentType("application/json");
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		
+		List<Reimbursement> userReims = rServ.getUserReimbursements(u.getId());
+		
+		session.setAttribute("user-reimbursements", userReims);
+		
+		String jsonString = om.writeValueAsString(userReims);
+		
+		PrintWriter out = response.getWriter();
+		
+		out.println(jsonString);
 	}
 }
