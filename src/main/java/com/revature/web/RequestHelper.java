@@ -2,6 +2,8 @@ package com.revature.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.hibernate.exception.ConstraintViolationException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dao.ReimbursementDaoImpl;
@@ -128,8 +132,28 @@ public class RequestHelper {
 		ReimbursementTypeEnum typeEnum = ReimbursementTypeEnum.valueOf(request.getParameter("reimbursement-type"));
 		ReimbursementType type = new ReimbursementType(typeEnum);
 		
-		Reimbursement r = new Reimbursement(amount, "null", "null", description, u.getId(), 0, 0, type);
+		LocalDateTime curTime = LocalDateTime.now();
 		
+		curTime = curTime.truncatedTo(ChronoUnit.SECONDS);
+		
+		// Set the types id to whatever the reimbursement-type is
+		switch (typeEnum.toString()) {
+		
+		case "FOOD":
+			type.setReim_type_id(1);
+			break;
+		case "LODGING":
+			type.setReim_type_id(2);
+			break;
+		case "TRAVEL":
+			type.setReim_type_id(3);
+			break;
+		default:
+			type.setReim_type_id(4);	
+		}
+		
+		Reimbursement r = new Reimbursement(amount, curTime, "null", description, u.getId(), 0, 0, type);	
+			
 		int pk = rServ.createReimbursement(r);
 		
 		if (pk > 0) {

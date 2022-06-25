@@ -2,6 +2,8 @@ package com.revature.service;
 
 import java.util.List;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import com.revature.dao.IReimbursementDao;
 import com.revature.models.Reimbursement;
 import com.revature.models.ReimbursementTypeEnum;
@@ -22,7 +24,17 @@ public class ReimbursementService {
 		// Might have to make some type of check to see if there is a reimbursement with the same 
 		// information in the DB already
 		
-		return rdao.insert(r);
+		int pk = 0;
+		
+		try {
+			
+			pk =  rdao.insert(r);
+			
+		} catch (ConstraintViolationException e) {
+			
+		}
+		
+		return pk;
 	}
 	
 	public List<Reimbursement> getUserReimbursements(int id) {

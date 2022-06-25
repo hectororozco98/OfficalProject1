@@ -1,5 +1,6 @@
 package com.revature.models;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
@@ -25,9 +26,8 @@ public class Reimbursement {
 	@Column(nullable=false)
 	private double amount;
 	
-	@Column(nullable=false)
-	//@Temporal(TemporalType.DATE)
-	private String submitted;
+	@Column(nullable=false, columnDefinition="TIMESTAMP")
+	private LocalDateTime submitted;
 	
 	@Column()
 	//@Temporal(TemporalType.DATE)
@@ -46,14 +46,14 @@ public class Reimbursement {
 	private int statusId;
 	
 	//FOREIGN KEY
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name="TypeId")
 	private ReimbursementType typeId;
 	
 	public Reimbursement() {
 	}
 
-	public Reimbursement(int id, double amount, String submitted, String resolved, String description, int authorId,
+	public Reimbursement(int id, double amount, LocalDateTime submitted, String resolved, String description, int authorId,
 			int resolverId, int statusId, ReimbursementType typeId) {
 		super();
 		Id = id;
@@ -67,7 +67,7 @@ public class Reimbursement {
 		this.typeId = typeId;
 	}
 
-	public Reimbursement(double amount, String submitted, String resolved, String description, int authorId,
+	public Reimbursement(double amount, LocalDateTime submitted, String resolved, String description, int authorId,
 			int resolverId, int statusId, ReimbursementType typeId) {
 		super();
 		this.amount = amount;
@@ -96,11 +96,11 @@ public class Reimbursement {
 		this.amount = amount;
 	}
 
-	public String getSubmitted() {
+	public LocalDateTime getSubmitted() {
 		return submitted;
 	}
 
-	public void setSubmitted(String submitted) {
+	public void setSubmitted(LocalDateTime submitted) {
 		this.submitted = submitted;
 	}
 
