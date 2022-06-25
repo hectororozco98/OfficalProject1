@@ -25,6 +25,11 @@ public class ReimbursementService {
 		return rdao.insert(r);
 	}
 	
+	public List<Reimbursement> getUserReimbursements(int id) {
+		
+		return rdao.findByAuthorId(id);
+	}
+	
 	public List<Reimbursement> getAll() {
 		
 		return rdao.findAll();

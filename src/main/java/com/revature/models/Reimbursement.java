@@ -47,6 +47,7 @@ public class Reimbursement {
 	
 	//FOREIGN KEY
 	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="TypeId")
 	private ReimbursementType typeId;
 	
 	public Reimbursement() {
