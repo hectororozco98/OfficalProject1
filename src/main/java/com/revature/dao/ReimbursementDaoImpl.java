@@ -3,6 +3,7 @@ package com.revature.dao;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.FlushMode;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -36,13 +37,13 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	}
 
 	@Override
-	public Reimbursement findByAuthorId(int id) {
+	public List<Reimbursement> findByAuthorId(int id) {
 		
 		Session ses = HibernateUtil.getSession();
 		
-		//Optional<Reimbursement> returnedReim = ses.createQuery("from reimbursements WHERE author_id = " + i, Reimbursement.class).stream().findFirst();
+		List<Reimbursement> returnedReim = ses.createQuery("from Reimbursement WHERE authorid = " + id, Reimbursement.class).list();
 		
-		return null;
+		return returnedReim;
 	}
 
 	@Override
@@ -50,7 +51,7 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	
 		Session ses = HibernateUtil.getSession();
 		
-		List<Reimbursement> emps = ses.createQuery("from reimbursements", Reimbursement.class).list();
+		List<Reimbursement> emps = ses.createQuery("from Reimbursement", Reimbursement.class).list();
 		
 		return emps;
 	}

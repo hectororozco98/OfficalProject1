@@ -1,6 +1,7 @@
 package com.revature.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -32,6 +33,17 @@ public class UserDaoImpl implements IUserDao {
 		// return the pk
 		return pk;
 		
+	}
+	
+	public User findByUsername(String username) {
+		
+		Session ses = HibernateUtil.getSession();
+		
+		Optional<User> possibleEmp = ses.createQuery("from User", User.class).stream()
+				.filter(u -> (u.getUsername().equals(username) && u.getUsername().equals(username)))
+				.findFirst();
+		
+		return possibleEmp.get();
 	}
 	
 	// Read

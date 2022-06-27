@@ -2,6 +2,11 @@ package com.revature.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -127,9 +132,34 @@ public class RequestHelper {
 		ReimbursementTypeEnum typeEnum = ReimbursementTypeEnum.valueOf(request.getParameter("reimbursement-type"));
 		ReimbursementType type = new ReimbursementType(typeEnum);
 		
-		Reimbursement r = new Reimbursement(amount, "null", "null", description, u.getId(), 0, 0, type);
+		Instant curTime = Instant.now();
 		
+		curTime = curTime.truncatedTo(ChronoUnit.SECONDS);
+		
+		// Set the types id to whatever the reimbursement-type is
+		switch (typeEnum.toString()) {
+		
+		case "FOOD":
+			type.setReim_type_id(1);
+			break;
+		case "LODGING":
+			type.setReim_type_id(2);
+			break;
+		case "TRAVEL":
+			type.setReim_type_id(3);
+			break;
+		default:
+			type.setReim_type_id(4);	
+		}
+		
+		System.out.println(u);
+		
+		Reimbursement r = new Reimbursement(amount, curTime, null, description, u, null, 0, type);	
+		
+		System.out.println(r.getId());
+			
 		int pk = rServ.createReimbursement(r);
+		
 		
 		if (pk > 0) {
 			
@@ -145,5 +175,25 @@ public class RequestHelper {
 			out.println("<h1> Failed to create reimbursement request</h1>");
 			out.println("<a href=\"index.html\"");
 		}
+	}
+	
+	public static void processGetFiledReimbursements(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		
+		HttpSession session = request.getSession();
+		
+		User u = (User) session.getAttribute("the-user");
+		
+		response.setContentType("application/json");
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		
+		List<Reimbursement> userReims = rServ.getUserReimbursements(u.getId());
+		
+		session.setAttribute("user-reimbursements", userReims);
+		
+		String jsonString = om.writeValueAsString(userReims);
+		
+		PrintWriter out = response.getWriter();
+		
+		out.println(jsonString);
 	}
 }
