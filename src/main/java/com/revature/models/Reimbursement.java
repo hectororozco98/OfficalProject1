@@ -1,12 +1,12 @@
 package com.revature.models;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="reimbursements")
@@ -27,20 +29,21 @@ public class Reimbursement {
 	private double amount;
 	
 	@Column(nullable=false, columnDefinition="TIMESTAMP")
-	private LocalDateTime submitted;
+	private Instant submitted;
 	
-	@Column()
-	//@Temporal(TemporalType.DATE)
-	private String resolved;
+	@Column(columnDefinition="TIMESTAMP")
+	private Instant resolved;
 	
 	@Column()
 	private String description;
 	
-	//FOREIGN KEY 
-	private int authorId;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="authorId")
+	private User authorId;
 	
-	//FOREIGN KEY
-	private int resolverId;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="resolverId")
+	private User resolverId;
 	
 	//FOREIGN KEY
 	private int statusId;
@@ -53,8 +56,8 @@ public class Reimbursement {
 	public Reimbursement() {
 	}
 
-	public Reimbursement(int id, double amount, LocalDateTime submitted, String resolved, String description, int authorId,
-			int resolverId, int statusId, ReimbursementType typeId) {
+	public Reimbursement(int id, double amount, Instant submitted, Instant resolved, String description, User authorId,
+			User resolverId, int statusId, ReimbursementType typeId) {
 		super();
 		Id = id;
 		this.amount = amount;
@@ -67,8 +70,8 @@ public class Reimbursement {
 		this.typeId = typeId;
 	}
 
-	public Reimbursement(double amount, LocalDateTime submitted, String resolved, String description, int authorId,
-			int resolverId, int statusId, ReimbursementType typeId) {
+	public Reimbursement(double amount, Instant submitted, Instant resolved, String description, User authorId,
+			User resolverId, int statusId, ReimbursementType typeId) {
 		super();
 		this.amount = amount;
 		this.submitted = submitted;
@@ -96,19 +99,19 @@ public class Reimbursement {
 		this.amount = amount;
 	}
 
-	public LocalDateTime getSubmitted() {
+	public Instant getSubmitted() {
 		return submitted;
 	}
 
-	public void setSubmitted(LocalDateTime submitted) {
+	public void setSubmitted(Instant submitted) {
 		this.submitted = submitted;
 	}
 
-	public String getResolved() {
+	public Instant getResolved() {
 		return resolved;
 	}
 
-	public void setResolved(String resolved) {
+	public void setResolved(Instant resolved) {
 		this.resolved = resolved;
 	}
 
@@ -120,19 +123,19 @@ public class Reimbursement {
 		this.description = description;
 	}
 
-	public int getAuthorId() {
+	public User getAuthorId() {
 		return authorId;
 	}
 
-	public void setAuthorId(int authorId) {
+	public void setAuthorId(User authorId) {
 		this.authorId = authorId;
 	}
 
-	public int getResolverId() {
+	public User getResolverId() {
 		return resolverId;
 	}
 
-	public void setResolverId(int resolverId) {
+	public void setResolverId(User resolverId) {
 		this.resolverId = resolverId;
 	}
 

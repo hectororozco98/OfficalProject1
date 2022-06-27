@@ -23,17 +23,16 @@ public class ReimbursementService {
 		
 		// Might have to make some type of check to see if there is a reimbursement with the same 
 		// information in the DB already
-		
 		int pk = 0;
 		
 		try {
 			
 			pk =  rdao.insert(r);
-			
 		} catch (ConstraintViolationException e) {
 			
 		}
-		
+			
+
 		return pk;
 	}
 	
