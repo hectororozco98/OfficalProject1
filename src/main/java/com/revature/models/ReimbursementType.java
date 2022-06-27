@@ -10,7 +10,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name="reimbursement_type")
@@ -21,7 +23,7 @@ public class ReimbursementType {
 	@Column(name = "reim_type_id")
 	private int reim_type_id;
 	
-	@Column(unique=true, nullable=false)
+	@Column(unique=true, nullable = false)
 	@Enumerated(EnumType.STRING)
 	private ReimbursementTypeEnum reim_type;
 
