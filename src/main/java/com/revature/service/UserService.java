@@ -3,11 +3,15 @@ package com.revature.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.log4j.Logger;
+
 import com.revature.dao.IUserDao;
-import com.revature.dao.UserDaoImpl;
+import com.revature.exceptions.UserIsRegisteredException;
 import com.revature.models.User;
 
 public class UserService {
+	
+	private static Logger logger = Logger.getLogger(UserService.class);
 	
 	private IUserDao udao;
 	
@@ -38,10 +42,24 @@ public class UserService {
 	}
 	
 	public int register(User u) {
-		return udao.insert(u);
+		
+		String username = u.getUsername();
+		
+		User possibleUser = udao.findByUsername(username);
+		
+		try {
+			
+			if (possibleUser.getId() == 0) {
+				
+				logger.info("Registration successful for user: " + username);
+				
+				return udao.insert(u);	
+			} else {
+				throw new UserIsRegisteredException("Failed to register user " + username + "because that username already exists");
+			}
+		}  catch (UserIsRegisteredException e) {
+			return 0;	
+		}
 	}
-	
-	
-	
 
 }
