@@ -48,6 +48,7 @@ public class RequestHelper {
 		PrintWriter out = response.getWriter();
 		out.write(jsonString);
 		
+		
 	}
 
 	public static void processRegistration(HttpServletRequest request, HttpServletResponse response)
@@ -133,10 +134,9 @@ public class RequestHelper {
 		ReimbursementType type = new ReimbursementType(typeEnum);
 		
 		Instant curTime = Instant.now();
-		
+
 		curTime = curTime.truncatedTo(ChronoUnit.SECONDS);
 		
-		// Set the types id to whatever the reimbursement-type is
 		switch (typeEnum.toString()) {
 		
 		case "FOOD":
@@ -152,11 +152,7 @@ public class RequestHelper {
 			type.setReim_type_id(4);	
 		}
 		
-		System.out.println(u);
-		
 		Reimbursement r = new Reimbursement(amount, curTime, null, description, u, null, 0, type);	
-		
-		System.out.println(r.getId());
 			
 		int pk = rServ.createReimbursement(r);
 		
