@@ -30,8 +30,6 @@ public class UserDaoImpl implements IUserDao {
 		
 		tx.commit();
 		
-		ses.close();
-		
 		// return the pk
 		return pk;
 		
@@ -45,7 +43,13 @@ public class UserDaoImpl implements IUserDao {
 				.filter(u -> (u.getUsername().equals(username) && u.getUsername().equals(username)))
 				.findFirst();
 		
-		return possibleEmp.get();
+		if (possibleEmp.isPresent()) {
+			
+			return possibleEmp.get();
+			
+		}
+
+		return new User();
 	}
 	
 	// Read
@@ -59,6 +63,7 @@ public class UserDaoImpl implements IUserDao {
 		 List<User> emps = ses.createQuery("from User", User.class).list();
 		
 		 // return the list of employees
+		 
 		return emps;
 		
 	}
@@ -67,7 +72,6 @@ public class UserDaoImpl implements IUserDao {
 		Transaction tx = ses.beginTransaction();
 		ses.delete(u);
 		tx.commit();
-		ses.close();
 		return true;
 	}
 	public boolean updateUser(User u) {
@@ -75,7 +79,6 @@ public class UserDaoImpl implements IUserDao {
 		Transaction tx = ses.beginTransaction();
 		ses.update(u);
 		tx.commit();
-		ses.close();
 		return true;
 	}
 }

@@ -35,16 +35,23 @@ public class ReimbursementType {
 	public ReimbursementType() {
 		super();
 	}
-
-	public ReimbursementType(int reim_type_id, ReimbursementTypeEnum reim_type) {
-		super();
-		this.reim_type_id = reim_type_id;
-		this.reim_type = reim_type;
-	}
-
+	
 	public ReimbursementType(ReimbursementTypeEnum reim_type) {
 		super();
 		this.reim_type = reim_type;
+	}
+
+	public ReimbursementType(int reim_type_id, ReimbursementTypeEnum reim_type, List<Reimbursement> reimbursements) {
+		super();
+		this.reim_type_id = reim_type_id;
+		this.reim_type = reim_type;
+		this.reimbursements = reimbursements;
+	}
+
+	public ReimbursementType(ReimbursementTypeEnum reim_type, List<Reimbursement> reimbursements) {
+		super();
+		this.reim_type = reim_type;
+		this.reimbursements = reimbursements;
 	}
 
 	public int getReim_type_id() {
@@ -63,9 +70,17 @@ public class ReimbursementType {
 		this.reim_type = reim_type;
 	}
 
+	public List<Reimbursement> getReimbursements() {
+		return reimbursements;
+	}
+
+	public void setReimbursements(List<Reimbursement> reimbursements) {
+		this.reimbursements = reimbursements;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(reim_type, reim_type_id);
+		return Objects.hash(reim_type, reim_type_id, reimbursements);
 	}
 
 	@Override
@@ -77,14 +92,17 @@ public class ReimbursementType {
 		if (getClass() != obj.getClass())
 			return false;
 		ReimbursementType other = (ReimbursementType) obj;
-		return reim_type == other.reim_type && reim_type_id == other.reim_type_id;
+		return reim_type == other.reim_type && reim_type_id == other.reim_type_id
+				&& Objects.equals(reimbursements, other.reimbursements);
 	}
 
 	@Override
 	public String toString() {
-		return "ReimbursementType [reim_type_id=" + reim_type_id + ", reim_type=" + reim_type + "]";
+		return "ReimbursementType [reim_type_id=" + reim_type_id + ", reim_type=" + reim_type + ", reimbursements="
+				+ reimbursements + "]";
 	}
-	
+
+
 	
 	
 }
