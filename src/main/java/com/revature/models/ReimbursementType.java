@@ -1,18 +1,19 @@
 package com.revature.models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name="reimbursement_type")
@@ -26,6 +27,9 @@ public class ReimbursementType {
 	@Column(unique=true, nullable = false)
 	@Enumerated(EnumType.STRING)
 	private ReimbursementTypeEnum reim_type;
+	
+	@OneToMany(mappedBy="typeId", fetch=FetchType.LAZY)
+	private List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
 
 	public ReimbursementType() {
 		super();

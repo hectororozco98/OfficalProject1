@@ -17,8 +17,8 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	
 		Session ses = HibernateUtil.getSession();
 		
-		Transaction tx = ses.beginTransaction();
-		
+		Transaction tx = ses.beginTransaction();	
+
 		int pk = (int) ses.save(r);
 		
 		tx.commit();
