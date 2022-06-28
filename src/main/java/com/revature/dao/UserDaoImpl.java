@@ -78,8 +78,4 @@ public class UserDaoImpl implements IUserDao {
 		ses.close();
 		return true;
 	}
-
-
-	
-
 }

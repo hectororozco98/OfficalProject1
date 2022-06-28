@@ -46,10 +46,12 @@ public class Reimbursement {
 	private User resolverId;
 	
 	//FOREIGN KEY
-	private int statusId;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="StatusId")
+	private ReimbursementStatus statusId;
 	
 	//FOREIGN KEY
-	@ManyToOne(cascade=CascadeType.REFRESH)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="TypeId")
 	private ReimbursementType typeId;
 	
@@ -57,7 +59,7 @@ public class Reimbursement {
 	}
 
 	public Reimbursement(int id, double amount, Instant submitted, Instant resolved, String description, User authorId,
-			User resolverId, int statusId, ReimbursementType typeId) {
+			User resolverId, ReimbursementStatus statusId, ReimbursementType typeId) {
 		super();
 		Id = id;
 		this.amount = amount;
@@ -71,7 +73,7 @@ public class Reimbursement {
 	}
 
 	public Reimbursement(double amount, Instant submitted, Instant resolved, String description, User authorId,
-			User resolverId, int statusId, ReimbursementType typeId) {
+			User resolverId, ReimbursementStatus statusId, ReimbursementType typeId) {
 		super();
 		this.amount = amount;
 		this.submitted = submitted;
@@ -139,11 +141,11 @@ public class Reimbursement {
 		this.resolverId = resolverId;
 	}
 
-	public int getStatusId() {
+	public ReimbursementStatus getStatusId() {
 		return statusId;
 	}
 
-	public void setStatusId(int statusId) {
+	public void setStatusId(ReimbursementStatus statusId) {
 		this.statusId = statusId;
 	}
 
