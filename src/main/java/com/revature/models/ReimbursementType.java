@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,7 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="reimbursement_type")
+@Table(name="Reimbursement_type")
 public class ReimbursementType {
 	
 	@Id
@@ -28,7 +29,7 @@ public class ReimbursementType {
 	@Enumerated(EnumType.STRING)
 	private ReimbursementTypeEnum reim_type;
 	
-	@OneToMany(mappedBy="typeId", fetch=FetchType.LAZY)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="typeId", fetch=FetchType.LAZY)
 	private List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
 
 	public ReimbursementType() {
