@@ -30,6 +30,8 @@ public class UserDaoImpl implements IUserDao {
 		
 		tx.commit();
 		
+		ses.close();
+		
 		// return the pk
 		return pk;
 		
@@ -60,15 +62,24 @@ public class UserDaoImpl implements IUserDao {
 		return emps;
 		
 	}
-	@Override
-	public boolean delete(int id) {
-		return false;
-		
+	public boolean deleteUser(User u) {
+		Session ses = HibernateUtil.getSession();
+		Transaction tx = ses.beginTransaction();
+		ses.delete(u);
+		tx.commit();
+		ses.close();
+		return true;
 	}
-	@Override
-	public boolean update(User u) {
-		return false;
+	public boolean updateUser(User u) {
+		Session ses = HibernateUtil.getSession();
+		Transaction tx = ses.beginTransaction();
+		ses.update(u);
+		tx.commit();
+		ses.close();
+		return true;
 	}
+
+
 	
 
 }
