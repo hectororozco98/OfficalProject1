@@ -5,62 +5,70 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.revature.models.ReimbursementStatus;
 import com.revature.models.ReimbursementType;
+import com.revature.models.UserType;
 import com.revature.util.HibernateUtil;
 
-public class ReimbursementStatusDaoImpl implements IReimbursementStatusDao {
+public class UserTypeDaoImpl implements IUserTypeDao {
 
 	@Override
-	public int insert(ReimbursementStatus rs) {
+	public int insert(UserType ut) {
 
 		Session ses = HibernateUtil.getSession();
 
 		Transaction tx = ses.beginTransaction();
 
-		ses.save(rs);
+		ses.save(ut);
 
 		tx.commit();
+		
+		ses.close();
 
 		return 1;
 	}
 
 	@Override
-	public List<ReimbursementStatus> findAll() {
-		
+	public List<UserType> findAll() {
+
 		Session ses = HibernateUtil.getSession();
 
-		List<ReimbursementStatus> status = ses.createQuery("from ReimbursementStatus", ReimbursementStatus.class)
-				.list();
+		List<UserType> types = ses.createQuery("from UserType", UserType.class).list();
+		
+		ses.close();
 
-		return status;
+		return types;
+
 	}
 
 	@Override
-	public boolean update(ReimbursementStatus rs) {
+	public boolean update(UserType ut) {
 		
 		Session ses = HibernateUtil.getSession();
 
 		Transaction tx = ses.beginTransaction();
 
-		ses.saveOrUpdate(rs);
+		ses.saveOrUpdate(ut);
 
 		tx.commit();
-			
+		
+		ses.close();
+		
 		return true;
 	}
 
 	@Override
-	public boolean delete(ReimbursementStatus rs) {
+	public boolean delete(UserType rt) {
 		
 		Session ses = HibernateUtil.getSession();
 
 		Transaction tx = ses.beginTransaction();
 		
-		ses.delete(rs);
+		ses.delete(rt);
 		
 		tx.commit();
-			
+		
+		ses.close();
+		
 		return true;
 	}
 

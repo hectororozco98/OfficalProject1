@@ -16,16 +16,20 @@ import com.revature.dao.ReimbursementDaoImpl;
 import com.revature.dao.ReimbursementStatusDaoImpl;
 import com.revature.dao.ReimbursementTypeDaoImpl;
 import com.revature.dao.UserDaoImpl;
+import com.revature.dao.UserTypeDaoImpl;
 import com.revature.models.Reimbursement;
 import com.revature.models.ReimbursementStatus;
 import com.revature.models.ReimbursementStatusEnum;
 import com.revature.models.ReimbursementType;
 import com.revature.models.ReimbursementTypeEnum;
 import com.revature.models.User;
+import com.revature.models.UserType;
+import com.revature.models.UserTypeEnum;
 import com.revature.service.ReimbursementService;
 import com.revature.service.ReimbursementStatusService;
 import com.revature.service.ReimbursementTypeService;
 import com.revature.service.UserService;
+import com.revature.service.UserTypeService;
 
 public class RequestHelper {
 
@@ -36,6 +40,8 @@ public class RequestHelper {
 	private static ReimbursementTypeService rtServ = new ReimbursementTypeService(new ReimbursementTypeDaoImpl());
 	
 	private static ReimbursementStatusService rsServ = new ReimbursementStatusService(new ReimbursementStatusDaoImpl());
+	
+	private static UserTypeService utServ = new UserTypeService(new UserTypeDaoImpl());
 	
 	private static ObjectMapper om = new ObjectMapper();
 	
@@ -67,7 +73,12 @@ public class RequestHelper {
 		
 		String email = request.getParameter("email");
 		
-		User u = new User(firstName, lastName, username, password, email);
+		UserType userType = new UserType();
+		
+		userType.setUser_type(UserTypeEnum.EMPLOYEE);
+		userType = utServ.createUserType(userType);
+		
+		User u = new User(firstName, lastName, username, password, email, userType);
 		
 		int pk = uServ.register(u);
 		
@@ -137,6 +148,8 @@ public class RequestHelper {
 		ReimbursementTypeEnum typeEnum = ReimbursementTypeEnum.valueOf(request.getParameter("reimbursement-type"));
 		ReimbursementType type = new ReimbursementType(typeEnum);
 		type = rtServ.createReimbursementType(type);
+		
+		System.out.println(type);
 		
 		ReimbursementStatus status = new ReimbursementStatus();
 		status.setReim_status(ReimbursementStatusEnum.PENDING);
