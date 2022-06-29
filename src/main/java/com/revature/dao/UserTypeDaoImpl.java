@@ -21,8 +21,6 @@ public class UserTypeDaoImpl implements IUserTypeDao {
 		ses.save(ut);
 
 		tx.commit();
-		
-		ses.close();
 
 		return 1;
 	}
@@ -33,8 +31,6 @@ public class UserTypeDaoImpl implements IUserTypeDao {
 		Session ses = HibernateUtil.getSession();
 
 		List<UserType> types = ses.createQuery("from UserType", UserType.class).list();
-		
-		ses.close();
 
 		return types;
 
@@ -51,8 +47,6 @@ public class UserTypeDaoImpl implements IUserTypeDao {
 
 		tx.commit();
 		
-		ses.close();
-		
 		return true;
 	}
 
@@ -66,8 +60,6 @@ public class UserTypeDaoImpl implements IUserTypeDao {
 		ses.delete(rt);
 		
 		tx.commit();
-		
-		ses.close();
 		
 		return true;
 	}
