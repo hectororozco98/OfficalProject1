@@ -2,11 +2,8 @@ package com.revature.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,22 +13,35 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dao.ReimbursementDaoImpl;
+import com.revature.dao.ReimbursementStatusDaoImpl;
+import com.revature.dao.ReimbursementTypeDaoImpl;
 import com.revature.dao.UserDaoImpl;
+import com.revature.dao.UserTypeDaoImpl;
 import com.revature.models.Reimbursement;
+import com.revature.models.ReimbursementStatus;
+import com.revature.models.ReimbursementStatusEnum;
 import com.revature.models.ReimbursementType;
 import com.revature.models.ReimbursementTypeEnum;
 import com.revature.models.User;
+import com.revature.models.UserType;
+import com.revature.models.UserTypeEnum;
 import com.revature.service.ReimbursementService;
+import com.revature.service.ReimbursementStatusService;
+import com.revature.service.ReimbursementTypeService;
 import com.revature.service.UserService;
+import com.revature.service.UserTypeService;
 
 public class RequestHelper {
 
 	private static UserService uServ = new UserService(new UserDaoImpl());
 	
 	private static ReimbursementService rServ = new ReimbursementService(new ReimbursementDaoImpl());
-
 	
-
+	private static ReimbursementTypeService rtServ = new ReimbursementTypeService(new ReimbursementTypeDaoImpl());
+	
+	private static ReimbursementStatusService rsServ = new ReimbursementStatusService(new ReimbursementStatusDaoImpl());
+	
+	private static UserTypeService utServ = new UserTypeService(new UserTypeDaoImpl());
 	
 	private static ObjectMapper om = new ObjectMapper();
 	
@@ -48,6 +58,7 @@ public class RequestHelper {
 		PrintWriter out = response.getWriter();
 		out.write(jsonString);
 		
+		
 	}
 
 	public static void processRegistration(HttpServletRequest request, HttpServletResponse response)
@@ -62,7 +73,12 @@ public class RequestHelper {
 		
 		String email = request.getParameter("email");
 		
-		User u = new User(firstName, lastName, username, password, email);
+		UserType userType = new UserType();
+		
+		userType.setUser_type(UserTypeEnum.EMPLOYEE);
+		userType = utServ.createUserType(userType);
+		
+		User u = new User(firstName, lastName, username, password, email, userType);
 		
 		int pk = uServ.register(u);
 		
@@ -131,35 +147,20 @@ public class RequestHelper {
 		//String type = request.getParameter("reimbursement-type");
 		ReimbursementTypeEnum typeEnum = ReimbursementTypeEnum.valueOf(request.getParameter("reimbursement-type"));
 		ReimbursementType type = new ReimbursementType(typeEnum);
+		type = rtServ.createReimbursementType(type);
+		
+		System.out.println(type);
+		
+		ReimbursementStatus status = new ReimbursementStatus();
+		status.setReim_status(ReimbursementStatusEnum.PENDING);
+		status = rsServ.createReimbursementStatus(status);
 		
 		Instant curTime = Instant.now();
-		
 		curTime = curTime.truncatedTo(ChronoUnit.SECONDS);
 		
-		// Set the types id to whatever the reimbursement-type is
-		switch (typeEnum.toString()) {
-		
-		case "FOOD":
-			type.setReim_type_id(1);
-			break;
-		case "LODGING":
-			type.setReim_type_id(2);
-			break;
-		case "TRAVEL":
-			type.setReim_type_id(3);
-			break;
-		default:
-			type.setReim_type_id(4);	
-		}
-		
-		System.out.println(u);
-		
-		Reimbursement r = new Reimbursement(amount, curTime, null, description, u, null, 0, type);	
-		
-		System.out.println(r.getId());
+		Reimbursement r = new Reimbursement(amount, curTime, null, description, u, null, status, type);	
 			
 		int pk = rServ.createReimbursement(r);
-		
 		
 		if (pk > 0) {
 			

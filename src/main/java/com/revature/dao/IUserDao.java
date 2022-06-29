@@ -12,8 +12,8 @@ public interface IUserDao {
 
 	List<User> findAll();
 
-	boolean delete(int id);
+	boolean deleteUser(User u);
 
-	boolean update(User u);
+	boolean updateUser(User u);
 
 }

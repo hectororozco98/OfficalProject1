@@ -43,7 +43,13 @@ public class UserDaoImpl implements IUserDao {
 				.filter(u -> (u.getUsername().equals(username) && u.getUsername().equals(username)))
 				.findFirst();
 		
-		return possibleEmp.get();
+		if (possibleEmp.isPresent()) {
+			
+			return possibleEmp.get();
+			
+		}
+
+		return new User();
 	}
 	
 	// Read
@@ -57,18 +63,22 @@ public class UserDaoImpl implements IUserDao {
 		 List<User> emps = ses.createQuery("from User", User.class).list();
 		
 		 // return the list of employees
+		 
 		return emps;
 		
 	}
-	@Override
-	public boolean delete(int id) {
-		return false;
-		
+	public boolean deleteUser(User u) {
+		Session ses = HibernateUtil.getSession();
+		Transaction tx = ses.beginTransaction();
+		ses.delete(u);
+		tx.commit();
+		return true;
 	}
-	@Override
-	public boolean update(User u) {
-		return false;
+	public boolean updateUser(User u) {
+		Session ses = HibernateUtil.getSession();
+		Transaction tx = ses.beginTransaction();
+		ses.update(u);
+		tx.commit();
+		return true;
 	}
-	
-
 }

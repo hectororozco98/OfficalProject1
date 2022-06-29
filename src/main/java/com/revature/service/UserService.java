@@ -30,6 +30,8 @@ public class UserService {
 				.filter(u -> (u.getUsername().equals(username) && u.getPassword().equals(password)))
 				.findFirst();
 		
+		logger.info("Logging employee with username: " + username + "into the server");
+		
 		// IF the employee is present, return it, otherwise return empty Emp object (with id of 0)
 		return (possibleEmp.isPresent() ? possibleEmp.get() : new User());
 		// ideally you should optimize this and set up a custom exception to be returned
@@ -61,5 +63,4 @@ public class UserService {
 			return 0;	
 		}
 	}
-
 }
