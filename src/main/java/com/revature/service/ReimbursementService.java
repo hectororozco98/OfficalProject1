@@ -29,7 +29,7 @@ public class ReimbursementService {
 			
 			pk =  rdao.insert(r);
 		} catch (ConstraintViolationException e) {
-			
+			e.printStackTrace();
 		}
 			
 
