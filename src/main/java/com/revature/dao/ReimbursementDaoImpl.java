@@ -41,7 +41,7 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 		
 		Session ses = HibernateUtil.getSession();
 		
-		List<Reimbursement> returnedReim = ses.createQuery("from Reimbursement", Reimbursement.class).list();
+		List<Reimbursement> returnedReim = ses.createQuery("from Reimbursement WHERE id = " + id, Reimbursement.class).list();
 		
 		return returnedReim;
 	}
