@@ -30,7 +30,6 @@ public class FrontController extends HttpServlet {
 			RequestHelper.processCreateReimbursement(request, response);
 			break;
 		case "view-filed-reimbursements":
-			System.out.println("TEST");
 			RequestHelper.processGetFiledReimbursements(request, response);
 			break;
 		default:

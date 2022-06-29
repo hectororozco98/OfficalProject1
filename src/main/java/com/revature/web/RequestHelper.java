@@ -189,7 +189,7 @@ public class RequestHelper {
 		
 		List<Reimbursement> userReims = rServ.getUserReimbursements(u.getId());
 		
-		session.setAttribute("user-reimbursements", userReims);
+		//session.setAttribute("user-reimbursements", userReims);
 		
 		String jsonString = om.writeValueAsString(userReims);
 		
