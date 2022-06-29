@@ -16,8 +16,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="reimbursement_status")
+@JsonIgnoreProperties({"reimbursements"})
 public class ReimbursementStatus {
 	
 	@Id
