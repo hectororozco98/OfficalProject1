@@ -54,13 +54,14 @@ public class RequestHelper {
 
 	private static ObjectMapper om = new ObjectMapper();
 
-	public static void processEmployees(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		// 1. set the content type to be application/json
-		// response.setContentType("application/json");
-		response.setContentType("text/html");
+	
+	public static void processEmployees(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+		//1. set the content type to be application/json
+		response.setContentType("application/json");
+		//response.setContentType("text/html");
+		
+		//2. Call the findAll() method from the employee service
 
-		// 2. Call the findAll() method from the employee service
 		List<User> emps = uServ.getAll();
 		// 3. transform the list into a string
 		String jsonString = om.writeValueAsString(emps);
@@ -125,11 +126,18 @@ public class RequestHelper {
 
 //			PrintWriter out = response.getWriter();
 //			response.setContentType("text/html");
+		
 
-			request.getRequestDispatcher("welcome.html").forward(request, response);
+			if(u.getUserType().getUser_type() == UserTypeEnum.EMPLOYEE) {
 
-//			out.println("<h1>Welcome " + u.getFirstName() + "</h1>");
-//			out.println("<h3>You have successfully logged in <h3>");
+			request.getRequestDispatcher("index.html").forward(request, response);
+					
+			} else if(u.getUserType().getUser_type() == UserTypeEnum.MANAGER) {
+				request.getRequestDispatcher("managerpage.html").forward(request, response);
+			}
+				
+			
+
 //			
 //			String jsonString = om.writeValueAsString(u);
 //			out.println(jsonString);
