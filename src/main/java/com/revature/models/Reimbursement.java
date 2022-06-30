@@ -1,5 +1,6 @@
 package com.revature.models;
 
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Date;
