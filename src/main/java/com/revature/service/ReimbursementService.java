@@ -18,21 +18,21 @@ public class ReimbursementService {
 		this.rdao = rdao;
 	}
 
-	public int createReimbursement(Reimbursement r) {
+	public Reimbursement createReimbursement(Reimbursement r) {
 
 		// Might have to make some type of check to see if there is a reimbursement with
 		// the same
-		// information in the DB already
-		int pk = 0;
-
+		// information in the DB already\
 		try {
 
-			pk = rdao.insert(r);
+			int pk = rdao.insert(r);
+			
+			r.setId(pk);
 		} catch (ConstraintViolationException e) {
 
 		}
 
-		return pk;
+		return r;
 	}
 
 	public List<Reimbursement> getUserReimbursements(int id) {

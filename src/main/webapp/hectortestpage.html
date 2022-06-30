@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hector's Test Page</title>
+
+    <link rel="stylesheet" href="assets/styles/hectorstyle.css">
+    <script src="assets/scripts/reimbursements.js" defer></script>
+
+</head>
+
+<header>
+    <h1>Create a Reimbursement</h1>
+    <button>Create Reimbursement Request</button>
+  </header>
+
+<body>
+
+    <div id="backdrop"></div>
+
+    <div class="modal" id="add-modal">
+        <div class="modal__content">
+            <label for="amount">Reimbursement Amount</label>
+            <input type="number" name="amount" id="amount" />
+            <label for="description">Description</label>
+            <input type="text" name="description" id="description" />
+            <select class="custom-select" id="reimbursement-type" name="reimbursement-type">
+                <option value="LODGING">Lodging</option>
+                <option value="TRAVEL">Travel</option>
+                <option value="FOOD">Food</option>
+                <option value="OTHER">Other</option>
+            </select>
+        </div>
+
+        <div class="modal__actions">
+            <button class="btn btn--passive">Cancel</button>
+            <button class="btn btn--success">Add</button>
+        </div>
+
+    </div>
+
+</body>
+
+<main>
+    <ul id="reimbursement-list"></ul> <!-- Add Movie Objects to list if we have them -->
+</main>
+
+</html>
