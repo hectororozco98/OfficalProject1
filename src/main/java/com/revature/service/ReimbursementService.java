@@ -6,7 +6,6 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import com.revature.dao.IReimbursementDao;
 import com.revature.models.Reimbursement;
-import com.revature.models.ReimbursementTypeEnum;
 
 public class ReimbursementService {
 
@@ -43,6 +42,23 @@ public class ReimbursementService {
 	public List<Reimbursement> getAll() {
 
 		return rdao.findAll();
+	}
+	
+	public boolean updateReimbursement(Reimbursement r) {
+		
+		if (rdao.update(r)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean deleteReimbursement(Reimbursement r) {
+		
+		if (rdao.delete(r)) {
+			return true;
+		}
+		return false;
+		
 	}
 
 }
