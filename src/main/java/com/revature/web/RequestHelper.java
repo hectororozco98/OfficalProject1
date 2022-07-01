@@ -30,6 +30,7 @@ import com.revature.dao.ReimbursementTypeDaoImpl;
 import com.revature.dao.UserDaoImpl;
 import com.revature.dao.UserTypeDaoImpl;
 import com.revature.exceptions.InsertReimbursementTypeFailedException;
+import com.revature.exceptions.UserIsRegisteredException;
 import com.revature.models.Reimbursement;
 import com.revature.models.ReimbursementStatus;
 import com.revature.models.ReimbursementStatusEnum;
@@ -94,7 +95,13 @@ public class RequestHelper {
 
 		User u = new User(firstName, lastName, username, password, email, userType);
 
-		int pk = uServ.register(u);
+		int pk = 0;
+		
+		try {
+			pk = uServ.register(u);	
+		} catch (UserIsRegisteredException e) {
+			e.printStackTrace();
+		}
 
 		if (pk > 0) {
 			u.setId(pk);
