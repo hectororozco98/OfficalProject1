@@ -4,13 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.StringReader;
-import java.lang.reflect.InaccessibleObjectException;
-import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,14 +21,14 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.MalformedJsonException;
 import com.revature.dao.ReimbursementDaoImpl;
 import com.revature.dao.ReimbursementStatusDaoImpl;
 import com.revature.dao.ReimbursementTypeDaoImpl;
 import com.revature.dao.UserDaoImpl;
 import com.revature.dao.UserTypeDaoImpl;
+import com.revature.exceptions.InsertReimbursementStatusFailedException;
 import com.revature.exceptions.InsertReimbursementTypeFailedException;
+import com.revature.exceptions.InsertUserTypeFailedException;
 import com.revature.exceptions.UserIsRegisteredException;
 import com.revature.models.Reimbursement;
 import com.revature.models.ReimbursementStatus;
@@ -91,7 +90,12 @@ public class RequestHelper {
 		UserType userType = new UserType();
 
 		userType.setUser_type(UserTypeEnum.EMPLOYEE);
-		userType = utServ.createUserType(userType);
+		
+		try {
+			userType = utServ.createUserType(userType);
+		} catch (InsertUserTypeFailedException e) {
+			userType = utServ.findType(userType.getUser_type());
+		}
 
 		User u = new User(firstName, lastName, username, password, email, userType);
 
@@ -186,7 +190,13 @@ public class RequestHelper {
 
 		ReimbursementStatus status = new ReimbursementStatus();
 		status.setReim_status(ReimbursementStatusEnum.PENDING);
-		status = rsServ.createReimbursementStatus(status);
+			
+		try {
+			
+			status = rsServ.createReimbursementStatus(status);
+		} catch (InsertReimbursementStatusFailedException e) {
+			status = rsServ.findStatusByStatus(status.getReim_status());
+		}
 
 		double amount = rootObject.get("amount").getAsDouble();
 
@@ -208,18 +218,12 @@ public class RequestHelper {
 		Reimbursement r = new Reimbursement(amount, curTime, null, description, u, null, status, type);
 
 		r = rServ.createReimbursement(r);	
-		
-
+	
+		String jsonString = om.writeValueAsString(r);
 
 		PrintWriter pw = response.getWriter();
+		pw.write(jsonString);
 		
-		try {
-			String json = gson.toJson(r);
-			pw.write(json);
-			
-		} catch (InaccessibleObjectException e) {
-			
-		}
 	}
 
 	public static void processGetFiledReimbursements(HttpServletRequest request, HttpServletResponse response)
