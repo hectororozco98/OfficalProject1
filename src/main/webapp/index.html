@@ -5,11 +5,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+<script src="assets/scripts/user-info.js" defer></script>
 <!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
-	integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
 	crossorigin="anonymous">
 <title>Team 6 Project 1 App</title>
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
@@ -22,9 +23,6 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-			<div class="navbar-nav">
-				<a class="nav-link" href="index.html">Home</a>
-			</div>
 			<div class="navbar-nav ml-auto">
 				<a class="nav-link" href="welcome.html">Logout</a>
 			</div>
@@ -32,55 +30,127 @@
 	</div>
 </nav>
 
+
 </head>
 <body>
 
-	<h1>Welcome to Team 6's Project 1 Application!</h1>
+		<h1>Employee Dashboard</h1>
 
-	<p> 1. An Employee can submit a reimbursement request 
-		<br>
-		2. An Employee can view their pending reimbursement requests 
-		<br>
-		3. An Employee can view their resolved reimbursement requests 
-		<br>
-		4. An Employee can view their information
-		<br>
-		5. An Employee can update their information
-	</p>
-		<p> Manager User Stories
-		<br>
-		A Manager can login
-		<br>
-		A Manager can view the Manager Homepage
-		<br>
-		A Manager can logout
-		<br>
-		A Manager can approve/deny pending reimbursement requests
-		<br>
-		A Manager can view all pending requests from all employees
-		<br>
-		A Manager can view images of the receipts from reimbursement requests (extra credit)
-		<br>
-		A Manager can view all resolved requests from all employees and see which manager resolved it
-		<br>
-		A Manager can view all Employees
-		<br>
-		A Manager can view reimbursement requests from a single Employee
+	<p>
+		1. An Employee can submit a reimbursement request <br> 2. An
+		Employee can view their pending reimbursement requests <br> 3. An
+		Employee can view their resolved reimbursement requests <br> 4.
+		An Employee can view their information <br> 5. An Employee can
+		update their information
 	</p>
 
-    <a class="btn btn-primary" href="reimbursements.html" role="button">New Reimbursement Request</a>
-    <div><br></div>
-    <form method="GET" action="view-filed-reimbursements">
-    <button>View your Reimbursements</button>
-    </form>
-    <a class="btn btn-primary" href="#" role="button">View Reimbursement Submissions</a>
-    <div><br></div>
-    <a class="btn btn btn-outline-secondary" href="#" role="button">View User Info</a>
-    <div><br></div>
-    <a class="btn btn btn-outline-secondary" href="#" role="button">Update User Info</a>
+
 	
+	<form method="GET" action="view-filed-reimbursements">
+		<button>View your Reimbursements</button>
+	</form>
+	
+	<div>
+		<br>
+	</div>
+
+<!--  REIMBURSEMENT MODAL -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reimbModal">New Reimbursement Request</button>
 
 
+<div class="modal fade" id="reimbModal" tabindex="-1" aria-labelledby="reimbModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reimbModalLabel">New Reimbursement</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+          <label for="amount">Reimbursement Amount</label>
+            <input type="number" name="amount" id="amount" />
+          </div>
+          <div class="mb-3">
+            <label for="description">Description</label>
+            <input type="text" name="description" id="description" />
+          </div>
+           <div class="mb-3">
+            <select class="custom-select" id="reimbursement-type" name="reimbursement-type">
+                <option value="LODGING">Lodging</option>
+                <option value="TRAVEL">Travel</option>
+                <option value="FOOD">Food</option>
+                <option value="OTHER">Other</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Submit Request</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+
+<!--  VIEW INFO MODAL -->
+	<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+		data-bs-target="#exampleModal">View/Update
+		your information</button>
+
+	<div class="modal fade" id="exampleModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Update info</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="mb-3">
+							<label class="form-label" for="firstname">First Name</label> <input
+								class="form-control" type="text" id="firstname" name="firstname"
+								required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label" for="lastname">Last Name</label> <input
+								class="form-control" type="text" id="lastname" name="lastname"
+								required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label" for="username">Username</label> <input
+								class="form-control" type="text" id="username" name="username"
+								required>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label" for="password">Password</label> <input
+								class="form-control" type="password" id="password"
+								name="password" required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label" for="password">Email</label> <input
+								class="form-control" type="email" id="email" name="email"
+								required>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save Changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+		crossorigin="anonymous"></script>
 </body>
 </html>
