@@ -8,6 +8,8 @@ import com.revature.dao.IReimbursementStatusDao;
 import com.revature.exceptions.InsertReimbursementStatusFailedException;
 import com.revature.exceptions.InsertReimbursementTypeFailedException;
 import com.revature.models.ReimbursementStatus;
+import com.revature.models.ReimbursementStatusEnum;
+import com.revature.models.ReimbursementType;
 
 public class ReimbursementStatusService {
 
@@ -25,22 +27,28 @@ public class ReimbursementStatusService {
 		Optional<ReimbursementStatus> possibleStatus = rsdao.findAll().stream()
 				.filter(s -> (s.getReim_status().equals(rs.getReim_status()))).findFirst();
 
-		try {
+		if (!possibleStatus.isPresent()) {
 
-			if (!possibleStatus.isPresent()) {
+			logger.info("Successfully inserted new Reimbursement Type " + rs.getReim_status() + " into the Database");
 
-				logger.info("Successfully inserted new Reimbursement Type " + rs.getReim_status() + " into the Database");
-
-				return rs;
-			} else if (possibleStatus.isPresent()) {
-				return possibleStatus.get();
-			} else {
-				throw new InsertReimbursementTypeFailedException(
-						"Failed to insert status " + rs.getReim_status() + " it exists");
-			}
-		} catch (InsertReimbursementStatusFailedException e) {
 			return rs;
+		} else {
+			throw new InsertReimbursementStatusFailedException(
+					"Failed to insert status " + rs.getReim_status() + " it exists");
 		}
+	}
+	
+	public ReimbursementStatus findStatusByStatus(ReimbursementStatusEnum status) {
+		
+		Optional<ReimbursementStatus> possibleStatus = rsdao.findAll().stream()
+				.filter(t -> (t.getReim_status().equals(status))).findFirst();
+		
+			if (possibleStatus.isPresent()) {
+				return possibleStatus.get();
+			}
+			else {
+				return new ReimbursementStatus();
+			}
 	}
 
 }
