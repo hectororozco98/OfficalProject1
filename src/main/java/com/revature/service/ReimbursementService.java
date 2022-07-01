@@ -29,7 +29,7 @@ public class ReimbursementService {
 			
 			r.setId(pk);
 		} catch (ConstraintViolationException e) {
-
+			e.printStackTrace();
 		}
 
 		return r;

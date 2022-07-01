@@ -32,37 +32,44 @@
 </head>
 <body>
 	</form>
-		<div class="mask d-flex align-items-center h-100">
-			<div class="container h-100">
-				<div class="row d-flex justify-content-center align-items-center h-100">
-					<div class="col-12 col-md-9 col-lg-7 col-xl-6">
-						<div class="card bg-light mb-3" style="margin: 50px; border-radius: 15px;">
-							<div class="card-body p-5">
-								<h2 class="text-uppercase text-center mb-5">New Reimbursement Request</h2>
-									<form action="reimbursements" method="POST">
-										<div class="mb-3">
-										<label class="form-label" for="amount">Reimbursement Amount</label> 
-										<input class="form-control" type="number" id="amount" name="amount" placeholder="Enter a dollar amount" required>
-										</div>
-										<div class="mb-3">
-										<label class="form-label" for="description">Description</label>
-										<input class="form-control" type="text" id="description" name="description" placeholder="Enter a description" required>
-										</div>
-										<div class="input-group mb-3">
-											<div class="input-group-prepend">
-											<label class="input-group-text" for="reimbursement-type">Reimbursement Type</label>
-											</div>
-												<select class="custom-select" id="reimbursement-type" name="reimbursement-type">
-													<option value="LODGING">Lodging</option>
-													<option value="TRAVEL">Travel</option>
-													<option value="FOOD">Food</option>
-													<option value="OTHER">Other</option>
-												</select>
-										</div>
-										<div class="mb-3">
-											<button class="btn btn-success">Submit</button>
-										</div>
-									</form>
+	<div class="mask d-flex align-items-center h-100">
+		<div class="container h-100">
+			<div
+				class="row d-flex justify-content-center align-items-center h-100">
+				<div class="col-12 col-md-9 col-lg-7 col-xl-6">
+					<div class="card bg-light mb-3"
+						style="margin: 50px; border-radius: 15px;">
+						<div class="card-body p-5">
+							<h2 class="text-uppercase text-center mb-5">New
+								Reimbursement Request</h2>
+							<form action="reimbursements" method="POST">
+								<div class="mb-3">
+									<label class="form-label" for="amount">Reimbursement
+										Amount</label> <input class="form-control" type="number" id="amount"
+										name="amount" placeholder="Enter a dollar amount" required>
+								</div>
+								<div class="mb-3">
+									<label class="form-label" for="description">Description</label>
+									<input class="form-control" type="text" id="description"
+										name="description" placeholder="Enter a description" required>
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<label class="input-group-text" for="reimbursement-type">Reimbursement
+											Type</label>
+									</div>
+									<select class="custom-select" id="reimbursement-type"
+										name="reimbursement-type">
+										<option value="LODGING">Lodging</option>
+										<option value="TRAVEL">Travel</option>
+										<option value="FOOD">Food</option>
+										<option value="OTHER">Other</option>
+									</select>
+								</div>
+								<div class="mb-3">
+									<button class="btn btn-success">Submit</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
