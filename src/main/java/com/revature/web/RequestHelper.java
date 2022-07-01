@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.lang.reflect.InaccessibleObjectException;
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -21,11 +22,14 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.MalformedJsonException;
 import com.revature.dao.ReimbursementDaoImpl;
 import com.revature.dao.ReimbursementStatusDaoImpl;
 import com.revature.dao.ReimbursementTypeDaoImpl;
 import com.revature.dao.UserDaoImpl;
 import com.revature.dao.UserTypeDaoImpl;
+import com.revature.exceptions.InsertReimbursementTypeFailedException;
 import com.revature.models.Reimbursement;
 import com.revature.models.ReimbursementStatus;
 import com.revature.models.ReimbursementStatusEnum;
@@ -162,10 +166,11 @@ public class RequestHelper {
 		Gson gson = new Gson();
 		gson = new GsonBuilder().create();
 		JsonObject payload = new JsonObject();
-
+		
 		JsonParser jsonParser = new JsonParser();
-
 		JsonElement root = jsonParser.parse(new InputStreamReader((InputStream) request.getInputStream()));
+		
+		System.out.println(root);
 
 		JsonObject rootObject = root.getAsJsonObject();
 
@@ -182,14 +187,22 @@ public class RequestHelper {
 
 		ReimbursementTypeEnum typeEnum = ReimbursementTypeEnum.valueOf(rootObject.get("type").getAsString());
 		ReimbursementType type = new ReimbursementType(typeEnum);
-		type = rtServ.createReimbursementType(type);
+		
+		try {
+			
+			type = rtServ.createReimbursementType(type);
+		} catch (InsertReimbursementTypeFailedException e) {
+			type = rtServ.findReimbursementTypeByType(type.getReim_type());
+		}
 	
 		Instant curTime = Instant.now();
 		curTime = curTime.truncatedTo(ChronoUnit.SECONDS);
 
 		Reimbursement r = new Reimbursement(amount, curTime, null, description, u, null, status, type);
 
-		r = rServ.createReimbursement(r);
+		r = rServ.createReimbursement(r);	
+		
+
 
 		PrintWriter pw = response.getWriter();
 		
