@@ -101,9 +101,11 @@ public class ReimbursementType {
 
 	@Override
 	public String toString() {
-		return "ReimbursementType [reim_type_id=" + reim_type_id + ", reim_type=" + reim_type + ", reimbursements="
-				+ reimbursements + "]";
+		return "ReimbursementType [reim_type_id=" + reim_type_id + ", reim_type=" + reim_type + "]";
 	}
+
+	
+	
 
 
 	

@@ -95,8 +95,10 @@ public class UserType {
 
 	@Override
 	public String toString() {
-		return "UserType [user_type_id=" + user_type_id + ", user_type=" + user_type + ", users=" + users + "]";
+		return "UserType [user_type_id=" + user_type_id + ", user_type=" + user_type + "]";
 	}
+
+	
 	
 	
 

@@ -58,13 +58,13 @@ public class RequestHelper {
 
 	private static ObjectMapper om = new ObjectMapper();
 
-	
-	public static void processEmployees(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
-		//1. set the content type to be application/json
+	public static void processEmployees(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		// 1. set the content type to be application/json
 		response.setContentType("application/json");
-		//response.setContentType("text/html");
-		
-		//2. Call the findAll() method from the employee service
+		// response.setContentType("text/html");
+
+		// 2. Call the findAll() method from the employee service
 
 		List<User> emps = uServ.getAll();
 		// 3. transform the list into a string
@@ -90,7 +90,7 @@ public class RequestHelper {
 		UserType userType = new UserType();
 
 		userType.setUser_type(UserTypeEnum.EMPLOYEE);
-		
+
 		try {
 			userType = utServ.createUserType(userType);
 		} catch (InsertUserTypeFailedException e) {
@@ -100,9 +100,9 @@ public class RequestHelper {
 		User u = new User(firstName, lastName, username, password, email, userType);
 
 		int pk = 0;
-		
+
 		try {
-			pk = uServ.register(u);	
+			pk = uServ.register(u);
 		} catch (UserIsRegisteredException e) {
 			e.printStackTrace();
 		}
@@ -141,17 +141,14 @@ public class RequestHelper {
 
 //			PrintWriter out = response.getWriter();
 //			response.setContentType("text/html");
-		
 
-			if(u.getUserType().getUser_type() == UserTypeEnum.EMPLOYEE) {
+			if (u.getUserType().getUser_type() == UserTypeEnum.EMPLOYEE) {
 
-			request.getRequestDispatcher("index.html").forward(request, response);
-					
-			} else if(u.getUserType().getUser_type() == UserTypeEnum.MANAGER) {
+				request.getRequestDispatcher("index.html").forward(request, response);
+
+			} else if (u.getUserType().getUser_type() == UserTypeEnum.MANAGER) {
 				request.getRequestDispatcher("managerpage.html").forward(request, response);
 			}
-				
-			
 
 //			
 //			String jsonString = om.writeValueAsString(u);
@@ -172,16 +169,12 @@ public class RequestHelper {
 		response.setContentType("application/josn");
 		response.addHeader("Access-Control-Allow-Origin", "*");
 
-		System.out.println("In the processeCreateReimbursementMethod within the Request Helper");
-
 		Gson gson = new Gson();
 		gson = new GsonBuilder().create();
 		JsonObject payload = new JsonObject();
-		
+
 		JsonParser jsonParser = new JsonParser();
 		JsonElement root = jsonParser.parse(new InputStreamReader((InputStream) request.getInputStream()));
-		
-		System.out.println(root);
 
 		JsonObject rootObject = root.getAsJsonObject();
 
@@ -190,9 +183,9 @@ public class RequestHelper {
 
 		ReimbursementStatus status = new ReimbursementStatus();
 		status.setReim_status(ReimbursementStatusEnum.PENDING);
-			
+
 		try {
-			
+
 			status = rsServ.createReimbursementStatus(status);
 		} catch (InsertReimbursementStatusFailedException e) {
 			status = rsServ.findStatusByStatus(status.getReim_status());
@@ -204,26 +197,26 @@ public class RequestHelper {
 
 		ReimbursementTypeEnum typeEnum = ReimbursementTypeEnum.valueOf(rootObject.get("type").getAsString());
 		ReimbursementType type = new ReimbursementType(typeEnum);
-		
+
 		try {
-			
+
 			type = rtServ.createReimbursementType(type);
 		} catch (InsertReimbursementTypeFailedException e) {
 			type = rtServ.findReimbursementTypeByType(type.getReim_type());
 		}
-	
+
 		Instant curTime = Instant.now();
 		curTime = curTime.truncatedTo(ChronoUnit.SECONDS);
 
 		Reimbursement r = new Reimbursement(amount, curTime, null, description, u, null, status, type);
 
-		r = rServ.createReimbursement(r);	
-	
+		r = rServ.createReimbursement(r);
+
 		String jsonString = om.writeValueAsString(r);
 
 		PrintWriter pw = response.getWriter();
 		pw.write(jsonString);
-		
+
 	}
 
 	public static void processGetFiledReimbursements(HttpServletRequest request, HttpServletResponse response)
@@ -245,5 +238,48 @@ public class RequestHelper {
 		PrintWriter out = response.getWriter();
 
 		out.println(jsonString);
+	}
+
+	public static void processGetReimbursementsByStatus(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+		response.setContentType("application/json");
+		response.addHeader("Access-Control-Allow-Origin", "*");
+
+		PrintWriter pw = response.getWriter();
+
+		Gson gson = new Gson();
+		gson = new GsonBuilder().create();
+		JsonObject params = new JsonObject();
+
+		try {
+
+			JsonParser jsonParser = new JsonParser();
+			JsonElement root = jsonParser.parse(new InputStreamReader((InputStream) request.getInputStream()));
+			JsonObject jsonobj = root.getAsJsonObject();
+			
+
+			ReimbursementStatusEnum statusEnum = ReimbursementStatusEnum.valueOf(jsonobj.get("status").getAsString());
+			
+			ReimbursementStatus status = rsServ.findStatusByStatus(statusEnum);
+
+			List<Reimbursement> reims = rServ.findReimbursementsByStatus(status);
+
+			if (reims != null) {
+				
+				String jsonString = om.writeValueAsString(reims);
+				pw.write(jsonString);
+			} else {
+
+				// send back a custom error code
+				params.addProperty("status", "process failed");				
+				String jsonString = om.writeValueAsString(params);
+				pw.write(jsonString);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			params.addProperty("status", "process failed");
+			String jsonString = om.writeValueAsString(params);
+			pw.write(jsonString);
+		}
 	}
 }

@@ -3,15 +3,19 @@ package com.revature.dao;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.FlushMode;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.TransientObjectException;
 
 import com.revature.models.Reimbursement;
+import com.revature.models.ReimbursementStatus;
+import com.revature.models.ReimbursementTypeEnum;
 import com.revature.util.HibernateUtil;
 
 public class ReimbursementDaoImpl implements IReimbursementDao {
+	
+	private static Logger logger = Logger.getLogger(ReimbursementDaoImpl.class);
 
 	@Override
 	public int insert(Reimbursement r) {
@@ -46,6 +50,28 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 		List<Reimbursement> returnedReim = ses.createQuery("from Reimbursement WHERE id = " + id, Reimbursement.class).list();
 		
 		return returnedReim;
+	}
+	
+	@Override
+	public List<Reimbursement> findByType(ReimbursementTypeEnum type) {
+		
+		List<Reimbursement> possibleReims = findAll().stream()
+				.filter(r -> (r.getTypeId().equals(type))).toList();
+		
+		logger.info("Gathering reimbursements of type: " + type.toString());
+		
+		return possibleReims;
+	}
+	
+	@Override
+	public List<Reimbursement> findByStatus(ReimbursementStatus status) {
+		
+		List<Reimbursement> possibleReims = findAll().stream()
+				.filter(r -> (r.getStatusId().equals(status))).toList();
+		
+		logger.info("Gathering reimbursements of status: " + status.toString());
+		
+		return possibleReims;
 	}
 
 	@Override
