@@ -266,8 +266,7 @@ public class RequestHelper {
 
 			if (reims != null) {
 				
-				String jsonString = om.writeValueAsString(reims);
-				pw.write(jsonString);
+				om.writeValue(pw, reims);
 			} else {
 
 				// send back a custom error code
@@ -283,3 +282,4 @@ public class RequestHelper {
 		}
 	}
 }
+///////////////////////////////////////////////// 286

@@ -1,5 +1,6 @@
 const reimbursementTypeSelector = document.getElementsByClassName('form-select');
 let reimTable = document.getElementById('reimbursements-table');
+const reimbursements = [];
 
 function selectReimbursementTableStatus(selectObject) {
 
@@ -10,7 +11,7 @@ function selectReimbursementTableStatus(selectObject) {
     fetchReimbursements(value);
 }
 
-const createPendingTable = (data) => {
+const createPendingTable = (reims) => {
 
     let header = document.createElement('thead'); // these are HTML elements
     let body = document.createElement('tbody');
@@ -55,7 +56,9 @@ const createPendingTable = (data) => {
     headerRow.appendChild(th6);
 
 
-    data.forEach(e => {
+    reimbursements.forEach(e => {
+
+        console.log("Adding " + e + "to table");
 
         let row = document.createElement('tr');
         let td1 = document.createElement('td');
@@ -65,12 +68,14 @@ const createPendingTable = (data) => {
         let td5 = document.createElement('td');
         let td6 = document.createElement('td');
 
-        td1.innerHTML = e.Id;
-        td2.innerHTML = e.authorId;
-        td3.innerHTML = e.typeId;
+        d.setUTCSeconds(e.submitted.epochSecond);
+
+        td1.innerHTML = e.id;
+        td2.innerHTML = e.authorId.firstName;
+        td3.innerHTML = e.typeId.reim_type;
         td4.innerHTML = e.description;
         td5.innerHTML = e.amount;
-        td6.innerHTML = e.submitted;
+        td6.innerHTML = d;
 
         row.appendChild(td1);
         row.appendChild(td2);
@@ -89,22 +94,44 @@ function fetchReimbursements(reimStatus) {
 
     fetch(`http://localhost:8080/official-project-one/view-reimbursements-by-status`, {
 
-        method:'POST',
+        method: 'POST',
         headers: {
             "Content-type": "application/json; charset=UTF-8",
         },
         body: JSON.stringify({
             status: reimStatus
-        })
-    }).then(data => {
+        }),
+    }).then(function (response) {
+        if (!response.ok) {
+            throw Error("ERROR");
+        }
+        return response.json();
+    }).then(function (data) {
 
-        console.log(data);
+        data.forEach((obj) => {
+
+            let newReim = {
+                id: obj.id,
+                amount: obj.amount,
+                submitted: obj.submitted,
+                resolved: obj.resolved,
+                description: obj.description,
+                authorId: obj.authorId,
+                resolverId: obj.resolverId,
+                statusId: obj.statusId,
+                typeId: obj.typeId
+            };
+
+            reimbursements.push(newReim);
+        });
+
+        console.log(reimbursements);
 
         switch (reimStatus) {
 
             case 'PENDING':
                 console.log("Pending table selected");
-                createPendingTable(data);
+                createPendingTable(reimbursements);
                 break;
             case 'APPROVED':
                 console.log("Approved table selected");
@@ -113,26 +140,25 @@ function fetchReimbursements(reimStatus) {
                 console.log("Denied table selected");
                 break;
         };
-
     })
-    .then(response => {
-        if (!response.ok) {
-            throw Error("ERROR")
-        }
+    // .then(response => {
+    //         if (!response.ok) {
+    //             throw Error("ERROR")
+    //         }
 
-        let childDiv= document.getElementById("warningText")
-        childDiv.innerHTML =`<p style="color:red;"><b>Failed to gather reimbursements!/b></p>`;
-        return response.json();
-    }).catch(error => {
-        console.log(error);
+    //         let childDiv = document.getElementById("warningText")
+    //         childDiv.innerHTML = `<p style="color:red;"><b>Failed to gather reimbursements!/b></p>`;
+    //         return response.json();
+    //     }).catch(error => {
+    //         console.log(error);
 
-        let childDiv= document.getElementById("warningText")
-        childDiv.innerHTML =`<p style="color:red;"><b>Failed to get reimbursements!</b></p>`;
-    })
-    
-    // we must remove the port number because when it's deployed it won't need this
-    //fetch(`http://${hostname}/official-project-one/employees`)
-    // this is changed because the port will be inferred when deployed on Elastic beanstalk
-    
+    //         let childDiv = document.getElementById("warningText")
+    //         childDiv.innerHTML = `<p style="color:red;"><b>Failed to get reimbursements!</b></p>`;
+    //     })
+
+    // // we must remove the port number because when it's deployed it won't need this
+    // //fetch(`http://${hostname}/official-project-one/employees`)
+    // // this is changed because the port will be inferred when deployed on Elastic beanstalk
+
 
 }
