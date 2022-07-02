@@ -1,50 +1,50 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
-	integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
-	crossorigin="anonymous">
-<title>Team 6 Project 1 App</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+		integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+	<title>Team 6 Project 1 App</title>
 
-<script src="assets/scripts/table-script.js" defer></script>
+	<script src="assets/scripts/table-script.js" defer></script> 
+	<script src="assets/scripts/managerpage.js" defer></script>
 
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="#">Employee Reimbursement System
-			(ERS)</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-			<div class="navbar-nav">
-				<a class="nav-link" href="index.html">Home</a>
-			</div>
-			<div class="navbar-nav ml-auto">
-				<a class="nav-link" href="welcome.html">Logout</a>
+	<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Employee Reimbursement System
+				(ERS)</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+				aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					<a class="nav-link" href="index.html">Home</a>
+				</div>
+				<div class="navbar-nav ml-auto">
+					<a class="nav-link" href="welcome.html">Logout</a>
+				</div>
 			</div>
 		</div>
-	</div>
-</nav>
+	</nav>
 
 </head>
+
 <body>
 
 	<h1>Manager Dashboard</h1>
 
 
 	</p>
-		<p> Manager User Stories
+	<p> Manager User Stories
 		<br>
-		
+
 		<br>
 		A Manager can approve/deny pending reimbursement requests
 		<br>
@@ -59,18 +59,58 @@
 		A Manager can view reimbursement requests from a single Employee
 	</p>
 
-    <a class="btn btn-primary" href="reimbursements.html" role="button">New Reimbursement Request</a>
-    <div><br></div>
-    <form method="GET" action="view-filed-reimbursements">
-    <button>View pending reimbursement requests</button>
-    </form>
-    <button id="view-emps" class="btn btn-primary">View all employees</button>
-    <div><br></div>
-    <table></table>
+	<form method="GET" action="view-filed-reimbursements">
+		<button>View pending reimbursement requests</button>
+	</form>
+	<button id="view-emps" class="btn btn-primary">View all employees</button>
+	<div><br /></div>
 
-	
+	<div>
+		<div>
+			<select onchange="selectReimbursementTableStatus(this)" class="form-select" aria-label="Default select example">
+				<option selected>Reimbursement Status</option>
+				<option value="PENDING">Pending</option>
+				<option value="APPROVED">Approved</option>
+				<option value="DENIED">Denied</option>
+			</select>
+		</div>
+
+		<table id="reimbursements-table" class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Employee</th>
+					<th scope="col">Type</th>
+					<th scope="col">Description</th>
+					<th scope="col">Amount</th>
+					<th scope="col">Submitted</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td colspan="2">Larry the Bird</td>
+					<td>@twitter</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
 
 
 
 </body>
+
 </html>

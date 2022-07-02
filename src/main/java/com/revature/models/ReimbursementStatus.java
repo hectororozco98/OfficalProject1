@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="reimbursement_status")
-@JsonIgnoreProperties({"reimbursements"})
+@JsonIgnoreProperties({"reimbursements", "users", "user_type"})
 public class ReimbursementStatus {
 	
 	@Id
@@ -96,9 +96,10 @@ public class ReimbursementStatus {
 
 	@Override
 	public String toString() {
-		return "ReimbursementStatus [reim_status_id=" + reim_status_id + ", reim_status=" + reim_status
-				+ ", reimbursements=" + reimbursements + "]";
+		return "ReimbursementStatus [reim_status_id=" + reim_status_id + ", reim_status=" + reim_status + "]";
 	}
+	
+	
 
 	
 	

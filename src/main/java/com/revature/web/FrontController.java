@@ -33,6 +33,9 @@ public class FrontController extends HttpServlet {
 		case "view-filed-reimbursements":
 			RequestHelper.processGetFiledReimbursements(request, response);
 			break;
+		case "view-reimbursements-by-status":
+			RequestHelper.processGetReimbursementsByStatus(request, response);
+			break;
 		default:
 			break;
 		}
