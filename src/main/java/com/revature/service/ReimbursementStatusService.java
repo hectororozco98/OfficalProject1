@@ -44,9 +44,11 @@ public class ReimbursementStatusService {
 				.filter(t -> (t.getReim_status().equals(status))).findFirst();
 		
 			if (possibleStatus.isPresent()) {
+				System.out.println("FOUND STATUS");
 				return possibleStatus.get();
 			}
 			else {
+				System.out.println("DID NOT FIND STATUS");
 				return new ReimbursementStatus();
 			}
 	}
