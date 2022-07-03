@@ -267,6 +267,9 @@ public class RequestHelper {
 			if (reims != null) {
 
 				om.writeValue(pw, reims);
+				
+				String jsonString = om.writeValueAsString(reims);
+				pw.write(jsonString);
 			} else {
 
 				// send back a custom error code
@@ -281,8 +284,7 @@ public class RequestHelper {
 			pw.write(jsonString);
 		}
 	}
-	
-	
+  
 	public static void processUpdate(HttpServletRequest request, HttpServletResponse response) {
 		String username = request.getParameter("username");
 
@@ -310,7 +312,6 @@ public class RequestHelper {
 		session.setAttribute("the-user", u);
 		
 	}
-	
 
 	public static void processUpdateReimbursement(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -365,4 +366,5 @@ public class RequestHelper {
 		}
 
 	}
+
 }

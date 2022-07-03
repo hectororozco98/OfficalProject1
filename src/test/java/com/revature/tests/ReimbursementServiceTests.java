@@ -47,32 +47,32 @@ public class ReimbursementServiceTests {
 	 * ReimbursementService createReimbursement
 	 */
 	
-//	@Test
-//	public void testCreateReimbursement_idGreaterThanZero_throwsException() {
-//		dummyReimbursement = new Reimbursement(2, 50.0, Instant.now().truncatedTo(ChronoUnit.SECONDS), null, null, null, null, null, null);
-//		
-//		when(mockDao.insert(dummyReimbursement)).thenThrow(ConstraintViolationException.class);
-//		
-//		int actualPk = rserv.createReimbursement(dummyReimbursement);
-//		int expectedPk = 0;
-//		
-//		assertEquals(actualPk, expectedPk);
-//	}
-//	
-//	@Test
-//	public void testCreateReimbursement_returnNewPkAsId() {
-//		dummyReimbursement = new Reimbursement(0, 50.0, Instant.now().truncatedTo(ChronoUnit.SECONDS), null, null, null, null, null, null);
-//		
-//		Random r = new Random();
-//		
-//		int expectedId = r.nextInt(100);
-//		
-//		when(mockDao.insert(dummyReimbursement)).thenReturn(expectedId);
-//		
-//		int actualId = rserv.createReimbursement(dummyReimbursement);
-//		
-//		assertEquals(expectedId, actualId);
-//	}
+	@Test
+	public void testCreateReimbursement_idGreaterThanZero_throwsException() {
+		dummyReimbursement = new Reimbursement(2, 50.0, Instant.now().truncatedTo(ChronoUnit.SECONDS), null, null, null, null, null, null);
+		
+		when(mockDao.insert(dummyReimbursement)).thenThrow(ConstraintViolationException.class);
+		
+		int actualPk = rserv.createReimbursement(dummyReimbursement).getId();
+		int expectedPk = 0;
+		
+		assertEquals(actualPk, expectedPk);
+	}
+	
+	@Test
+	public void testCreateReimbursement_returnNewPkAsId() {
+		dummyReimbursement = new Reimbursement(0, 50.0, Instant.now().truncatedTo(ChronoUnit.SECONDS), null, null, null, null, null, null);
+		
+		Random r = new Random();
+		
+		int expectedId = r.nextInt(100);
+		
+		when(mockDao.insert(dummyReimbursement)).thenReturn(expectedId);
+		
+		int actualId = rserv.createReimbursement(dummyReimbursement).getId();
+		
+		assertEquals(expectedId, actualId);
+	}
 	
 	/**
 	 * ReimbursementService getUserReimbursement
