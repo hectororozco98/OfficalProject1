@@ -31,3 +31,4 @@ reimbModal.addEventListener('show.bs.modal', event => {
 
   modalBodyInput.value = recipient
 });
+

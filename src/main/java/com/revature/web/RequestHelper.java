@@ -266,7 +266,8 @@ public class RequestHelper {
 
 			if (reims != null) {
 				
-				om.writeValue(pw, reims);
+				String jsonString = om.writeValueAsString(reims);
+				pw.write(jsonString);
 			} else {
 
 				// send back a custom error code
@@ -281,5 +282,32 @@ public class RequestHelper {
 			pw.write(jsonString);
 		}
 	}
+
+	public static void processUpdate(HttpServletRequest request, HttpServletResponse response) {
+		String username = request.getParameter("username");
+
+		String password = request.getParameter("password");
+
+		String firstName = request.getParameter("firstname");
+
+		String lastName = request.getParameter("lastname");
+
+		String email = request.getParameter("email");
+				
+		
+		HttpSession session = request.getSession();
+		User u = (User) session.getAttribute("the-user");
+				
+		
+		u.setUsername(username);
+		u.setFirstName(firstName);
+		u.setLastName(lastName);
+		u.setPassword(password);
+		u.setEmail(email);
+				
+		// persist the changes and set the updated employee as the session user
+		uServ.updateUser(u);
+		session.setAttribute("the-user", u);
+		
+	}
 }
-///////////////////////////////////////////////// 286
