@@ -35,6 +35,11 @@ public class ReimbursementService {
 
 		return r;
 	}
+	
+	public Reimbursement findById(int id) {
+		
+		return rdao.findById(id);
+	}
 
 	public List<Reimbursement> getUserReimbursements(int id) {
 

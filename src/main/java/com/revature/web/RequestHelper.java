@@ -240,7 +240,50 @@ public class RequestHelper {
 		out.println(jsonString);
 	}
 
-	public static void processGetReimbursementsByStatus(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	public static void processGetReimbursementsByStatus(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		response.setContentType("application/json");
+		response.addHeader("Access-Control-Allow-Origin", "*");
+
+		PrintWriter pw = response.getWriter();
+
+		Gson gson = new Gson();
+		gson = new GsonBuilder().create();
+		JsonObject params = new JsonObject();
+
+		try {
+
+			JsonParser jsonParser = new JsonParser();
+			JsonElement root = jsonParser.parse(new InputStreamReader((InputStream) request.getInputStream()));
+			JsonObject jsonobj = root.getAsJsonObject();
+
+			ReimbursementStatusEnum statusEnum = ReimbursementStatusEnum.valueOf(jsonobj.get("status").getAsString());
+
+			ReimbursementStatus status = rsServ.findStatusByStatus(statusEnum);
+
+			List<Reimbursement> reims = rServ.findReimbursementsByStatus(status);
+
+			if (reims != null) {
+
+				om.writeValue(pw, reims);
+			} else {
+
+				// send back a custom error code
+				params.addProperty("status", "process failed");
+				String jsonString = om.writeValueAsString(params);
+				pw.write(jsonString);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			params.addProperty("status", "process failed");
+			String jsonString = om.writeValueAsString(params);
+			pw.write(jsonString);
+		}
+	}
+
+	public static void processUpdateReimbursement(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 
 		response.setContentType("application/json");
 		response.addHeader("Access-Control-Allow-Origin", "*");
@@ -257,29 +300,40 @@ public class RequestHelper {
 			JsonElement root = jsonParser.parse(new InputStreamReader((InputStream) request.getInputStream()));
 			JsonObject jsonobj = root.getAsJsonObject();
 			
-
+			Reimbursement reim = rServ.findById(jsonobj.get("id").getAsInt());
+			
 			ReimbursementStatusEnum statusEnum = ReimbursementStatusEnum.valueOf(jsonobj.get("status").getAsString());
 			
-			ReimbursementStatus status = rsServ.findStatusByStatus(statusEnum);
-
-			List<Reimbursement> reims = rServ.findReimbursementsByStatus(status);
-
-			if (reims != null) {
+			
+			ReimbursementStatus status = new ReimbursementStatus(statusEnum);
+			
+			try {
+				status = rsServ.createReimbursementStatus(status);
 				
-				om.writeValue(pw, reims);
-			} else {
-
-				// send back a custom error code
-				params.addProperty("status", "process failed");				
-				String jsonString = om.writeValueAsString(params);
-				pw.write(jsonString);
+			} catch (InsertReimbursementStatusFailedException e){
+				status = rsServ.findStatusByStatus(statusEnum);
 			}
+			
+			if (reim != null) {
+				Instant curTime = Instant.now();
+				curTime = curTime.truncatedTo(ChronoUnit.SECONDS);
+				
+				HttpSession session = request.getSession();
+				User u = (User) session.getAttribute("the-user");
+				
+				reim.setResolverId(u);
+				reim.setResolved(curTime);
+				reim.setStatusId(status);
+				rServ.updateReimbursement(reim);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			params.addProperty("status", "process failed");
 			String jsonString = om.writeValueAsString(params);
 			pw.write(jsonString);
 		}
+
 	}
 }
 ///////////////////////////////////////////////// 286

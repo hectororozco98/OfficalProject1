@@ -45,6 +45,11 @@ public class ReimbursementStatus {
 		this.reim_status = reim_status;
 		this.reimbursements = reimbursements;
 	}
+	
+	public ReimbursementStatus(ReimbursementStatusEnum reim_status) {
+		super();
+		this.reim_status = reim_status;
+	}
 
 	public ReimbursementStatus(ReimbursementStatusEnum reim_status, List<Reimbursement> reimbursements) {
 		super();
