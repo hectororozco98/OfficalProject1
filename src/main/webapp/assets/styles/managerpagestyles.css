@@ -1,12 +1,9 @@
 #action-reimbursement {
-    padding-left: 30px;
     background-color: brown;
     border-color: brown;
-    width: 30%;
 }
 
 #action-reimbursement:hover {
-    padding: 10px;
     background-color: rgb(247, 118, 118);
     border-color: rgb(247, 118, 118);
     
@@ -16,3 +13,7 @@
     outline: grey;
     box-shadow: none;
   }
+
+h3 {
+    padding-top: 50px;
+}
