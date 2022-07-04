@@ -809,6 +809,9 @@ function fetchReimbursements(reimStatus) {
         })
     } else {
 
+        let loader = document.getElementById("test");
+        loader.style.visibility = "visible";
+
         fetch(`http://localhost:8080/official-project-one/view-reimbursements-by-status`, {
 
             method: 'POST',
