@@ -147,8 +147,9 @@ public class RequestHelper {
 			}
 
 //			
-//			String jsonString = om.writeValueAsString(u);
-//			out.println(jsonString);
+			String jsonString = om.writeValueAsString(u);
+			PrintWriter out = response.getWriter();
+			out.write(jsonString);
 
 		} else {
 			PrintWriter out = response.getWriter();
@@ -305,25 +306,31 @@ public class RequestHelper {
 		}
 	}
   
-	public static void processUpdate(HttpServletRequest request, HttpServletResponse response) {
-		String username = request.getParameter("username");
+	public static void processUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		
+		JsonParser jsonParser = new JsonParser();
+        JsonElement root = jsonParser.parse(new InputStreamReader((InputStream) request.getInputStream()));
+        JsonObject jsonobj = root.getAsJsonObject();
+		
+		
+		String username = jsonobj.get("username").getAsString();
 
-		String password = request.getParameter("password");
+		String password = jsonobj.get("password").getAsString();
 
-		String firstName = request.getParameter("firstname");
+		String firstName = jsonobj.get("firstName").getAsString();
 
-		String lastName = request.getParameter("lastname");
+		String lastName = jsonobj.get("lastName").getAsString();
 
-		String email = request.getParameter("email");
+		String email = jsonobj.get("email").getAsString();
 				
 		
 		HttpSession session = request.getSession();
 		User u = (User) session.getAttribute("the-user");
 				
 		
-		u.setUsername(username);
 		u.setFirstName(firstName);
 		u.setLastName(lastName);
+		u.setUsername(username);
 		u.setPassword(password);
 		u.setEmail(email);
 				

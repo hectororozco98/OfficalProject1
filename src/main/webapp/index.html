@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="assets/scripts/modals.js" defer></script>
 <script src="assets/scripts/app.js" defer></script>
 <link rel="stylesheet" href="assets/styles/app.css">
 <!-- Bootstrap CSS -->
@@ -38,23 +37,26 @@
 
 		<h1>Employee Dashboard</h1>
 
-	<p>
-		1. An Employee can submit a reimbursement request <br> 2. An
-		Employee can view their pending reimbursement requests <br> 3. An
-		Employee can view their resolved reimbursement requests <br> 4.
-		An Employee can view their information <br> 5. An Employee can
-		update their information
-	</p>
 
 
 	<div id="buttons">
+    <div class="card text-center" style="width: 300px; height: 250px">
+      <img src="https://in.koppr.com/wp-content/uploads/2019/10/Expense-Reimbursement-101.jpg" class="card-img-top" alt="..." height="165px">
+        <div class="card-body">
 	<form method="GET" action="view-filed-reimbursements">
-		<button class="btn btn-primary">View your Reimbursements</button>
+		<button class="btn btn-primary" id="viewReimbs">View your Reimbursements</button>
 	</form>
+    </div>
+</div>
 	
 
 <!--  REIMBURSEMENT MODAL -->
+    <div class="card text-center" style="width: 300px; height: 250px">
+      <img src="https://in.koppr.com/wp-content/uploads/2019/10/business-expense-reimbursement.png" class="card-img-top" alt="..." height="165px">
+        <div class="card-body">
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reimbModal">New Reimbursement Request</button>
+          </div>
+</div>
 
 
 <div class="modal fade" id="reimbModal" tabindex="-1" aria-labelledby="reimbModalLabel" aria-hidden="true">
@@ -97,9 +99,14 @@
 
 
 <!--  VIEW INFO MODAL -->
+     <div class="card text-center" style="width: 300px; height: 250px">
+      <img src="https://in.koppr.com/wp-content/uploads/2020/01/financial-planning-2020-1080x675.png" class="card-img-top" alt="..." height="165px">
+        <div class="card-body">
 	<button type="button" class="btn btn-primary" data-bs-toggle="modal"
 		data-bs-target="#exampleModal">View/Update
 		your information</button>
+       </div>
+    </div>
 
 	<div class="modal fade" id="exampleModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -143,7 +150,7 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-success">Save Changes</button>
+					<button type="button" class="btn btn-success" id="updateInfo">Save Changes</button>
 				</div>
 			</div>
 		</div>
@@ -155,7 +162,7 @@
 		integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
 		crossorigin="anonymous"></script>
 </body>
-<main>
-    <ul id="reimbursement-list"></ul> <!-- Add Reimbursement Objects to list if we have them -->
-</main>
+<table id="user-reims" class="table table-striped" class="table-responsive">
+
+</table>
 </html>

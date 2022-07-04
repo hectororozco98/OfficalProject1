@@ -19,6 +19,7 @@
   <url-pattern>/view-filed-reimbursements</url-pattern>
   <url-pattern>/view-reimbursements-by-status</url-pattern>
   <url-pattern>/update-reimbursement</url-pattern>
+  <url-pattern>/update</url-pattern>
   <!-- http://localhost:8080/employee-servlet-app/login -->
  </servlet-mapping>
 </web-app>
