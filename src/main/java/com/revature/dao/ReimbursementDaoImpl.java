@@ -2,6 +2,7 @@ package com.revature.dao;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -57,7 +58,8 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	public List<Reimbursement> findByType(ReimbursementTypeEnum type) {
 		
 		List<Reimbursement> possibleReims = findAll().stream()
-				.filter(r -> (r.getTypeId().equals(type))).toList();
+				.filter(r -> (r.getTypeId().getReim_type().equals(type)))
+				.collect(Collectors.toList());
 		
 		logger.info("Gathering reimbursements of type: " + type.toString());
 		
@@ -68,7 +70,8 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	public List<Reimbursement> findByStatus(ReimbursementStatus status) {
 		
 		List<Reimbursement> possibleReims = findAll().stream()
-				.filter(r -> (r.getStatusId().equals(status))).toList();
+				.filter(r -> (r.getStatusId().equals(status)))
+				.collect(Collectors.toList());
 		
 		logger.info("Gathering reimbursements of status: " + status.toString());
 		
