@@ -1,12 +1,9 @@
 #action-reimbursement {
-    padding-left: 30px;
     background-color: brown;
     border-color: brown;
-    width: 30%;
 }
 
 #action-reimbursement:hover {
-    padding: 10px;
     background-color: rgb(247, 118, 118);
     border-color: rgb(247, 118, 118);
     
@@ -17,13 +14,18 @@
     box-shadow: none;
   }
 
+h3 {
+    padding-top: 50px;
+    text-align: center;
+}
+
 h1 {
   text-align: center;
   padding: 30px;
 }
 
-h3 {
-  text-align: center;
-  padding: 15px;
-}
 
+#buttons {
+  display: flex;
+  justify-content: space-around;
+}
