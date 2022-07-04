@@ -79,15 +79,10 @@ public class RequestHelper {
 	public static void processRegistration(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		String username = request.getParameter("username");
-
 		String password = request.getParameter("password");
-
 		String firstName = request.getParameter("firstname");
-
 		String lastName = request.getParameter("lastname");
-
 		String email = request.getParameter("email");
-
 		UserType userType = new UserType();
 
 		userType.setUser_type(UserTypeEnum.EMPLOYEE);

@@ -22,7 +22,8 @@ h1 {
   padding: 30px;
 }
 
-#buttons {
-  display: flex;
-  justify-content: space-around;
+h3 {
+  text-align: center;
+  padding: 15px;
 }
+
