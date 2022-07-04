@@ -25,6 +25,7 @@ function clearTable() {
 }
 
 function approveReimbursement(evt) {
+    let hostname = window.location.hostname;
 
     console.log("Approve button pressed " + evt.currentTarget.value);
 
@@ -32,7 +33,7 @@ function approveReimbursement(evt) {
 
     console.log(curReim.id);
 
-    fetch(`http://localhost:8080/official-project-one/update-reimbursement`, {
+    fetch(`http://${hostname}:8080/official-project-one/update-reimbursement`, {
 
         method: 'POST',
         headers: {
@@ -51,6 +52,7 @@ function approveReimbursement(evt) {
 
 
 function denyReimbursement(evt) {
+    let hostname = window.location.hostname;
 
     console.log("Deny button pressed " + evt.currentTarget.value);
 
@@ -58,7 +60,7 @@ function denyReimbursement(evt) {
 
     console.log(curReim.id);
 
-    fetch(`http://localhost:8080/official-project-one/update-reimbursement`, {
+    fetch(`http://${hostname}:8080/official-project-one/update-reimbursement`, {
 
         method: 'POST',
         headers: {
@@ -77,11 +79,12 @@ function denyReimbursement(evt) {
 
 function approveEmpReimbursement(evt) {
 
+    let hostname = window.location.hostname;
     console.log("Approve button pressed " + evt.currentTarget.value);
 
     let curReimId = evt.currentTarget.value;
 
-    fetch(`http://localhost:8080/official-project-one/update-reimbursement`, {
+    fetch(`http://${hostname}:8080/official-project-one/update-reimbursement`, {
 
         method: 'POST',
         headers: {
@@ -102,6 +105,7 @@ function approveEmpReimbursement(evt) {
 
 
 function denyEmpReimbursement(evt) {
+    let hostname = window.location.hostname;
 
     console.log("Deny button pressed " + evt.currentTarget.value);
 
@@ -109,7 +113,7 @@ function denyEmpReimbursement(evt) {
 
     console.log(curReimId);
 
-    fetch(`http://localhost:8080/official-project-one/update-reimbursement`, {
+    fetch(`http://${hostname}:8080/official-project-one/update-reimbursement`, {
 
         method: 'POST',
         headers: {
@@ -129,6 +133,7 @@ function denyEmpReimbursement(evt) {
 }
 
 function getEmpReims(evt) {
+    let hostname = window.location.hostname;
 
     reimbursements = [];
     approveButtons = [];
