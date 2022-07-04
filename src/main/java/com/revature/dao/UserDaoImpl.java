@@ -67,6 +67,22 @@ public class UserDaoImpl implements IUserDao {
 		return emps;
 		
 	}
+	
+	@Override
+	public List<User> findAllEmps() {
+		
+		// grab the session
+		Session ses = HibernateUtil.getSession();
+		
+		// make an HQL -- Hibernate Query Language: odd mix of OOP & native SQL
+		 List<User> emps = ses.createQuery("from User WHERE userType = 1 ORDER BY lastName ASC", User.class).list();
+		
+		 // return the list of employees
+		 
+		return emps;
+		
+	}
+	
 	public boolean deleteUser(User u) {
 		Session ses = HibernateUtil.getSession();
 		Transaction tx = ses.beginTransaction();
