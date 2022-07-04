@@ -142,7 +142,7 @@ function getEmpReims(evt) {
 
     console.log("Showing requests for employee with id of " + curEmp.id);
 
-    fetch(`http://${hostname}/official-project-one/view-filed-reimbursements`, {
+    fetch(`http://${hostname}:8080/official-project-one/view-filed-reimbursements`, {
 
         method: 'POST',
         headers: {
@@ -776,7 +776,7 @@ function fetchReimbursements(reimStatus) {
     if (reimStatus == "EMPLOYEES") {
         console.log("Employee table selected");
 
-        fetch(`http://${hostname}/official-project-one/employees`, {
+        fetch(`http://${hostname}:8080/official-project-one/employees`, {
 
             method: 'POST',
             headers: {
@@ -809,7 +809,7 @@ function fetchReimbursements(reimStatus) {
         })
     } else {
 
-        fetch(`http://${hostname}/official-project-one/view-reimbursements-by-status`, {
+        fetch(`http://${hostname}:8080/official-project-one/view-reimbursements-by-status`, {
 
             method: 'POST',
             headers: {
