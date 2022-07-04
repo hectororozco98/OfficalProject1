@@ -16,3 +16,13 @@
     outline: grey;
     box-shadow: none;
   }
+
+h1 {
+  text-align: center;
+  padding: 30px;
+}
+
+#buttons {
+  display: flex;
+  justify-content: space-around;
+}
