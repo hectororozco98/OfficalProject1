@@ -11,6 +11,8 @@ public interface IUserDao {
 	User findByUsername(String username);
 
 	List<User> findAll();
+	
+	List<User> findAllEmps();
 
 	boolean deleteUser(User u);
 

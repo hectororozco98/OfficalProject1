@@ -35,9 +35,10 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 	public Reimbursement findById(int id) {
 
 		Session ses = HibernateUtil.getSession();
+		
+		System.out.println("Id is: " + id);
 
-		Optional<Reimbursement> returnedReim = ses
-				.createQuery("from Reimbursement WHERE id = " + id, Reimbursement.class).stream().findFirst();
+		Optional<Reimbursement> returnedReim = ses.createQuery("from Reimbursement WHERE id = " + id, Reimbursement.class).stream().findFirst();
 
 		return returnedReim.get();
 	}
@@ -47,7 +48,7 @@ public class ReimbursementDaoImpl implements IReimbursementDao {
 		
 		Session ses = HibernateUtil.getSession();
 		
-		List<Reimbursement> returnedReim = ses.createQuery("from Reimbursement WHERE id = " + id, Reimbursement.class).list();
+		List<Reimbursement> returnedReim = ses.createQuery("from Reimbursement WHERE authorid = " + id, Reimbursement.class).list();
 		
 		return returnedReim;
 	}
