@@ -48,13 +48,15 @@ public class ReimbursementServiceTests {
 	 */
 	
 	@Test
-	public void testCreateReimbursement_idGreaterThanZero_throwsException() {
-		dummyReimbursement = new Reimbursement(2, 50.0, Instant.now().truncatedTo(ChronoUnit.SECONDS), null, null, null, null, null, null);
+	public void testCreateReimbursement_Success() {
+		dummyReimbursement = new Reimbursement(50.0, Instant.now().truncatedTo(ChronoUnit.SECONDS), null, "test", null, null, null, null);
 		
-		when(mockDao.insert(dummyReimbursement)).thenThrow(ConstraintViolationException.class);
+		int newPk = 6;
+		
+		when(mockDao.insert(dummyReimbursement)).thenReturn(newPk);
 		
 		int actualPk = rserv.createReimbursement(dummyReimbursement).getId();
-		int expectedPk = 0;
+		int expectedPk = 6;
 		
 		assertEquals(actualPk, expectedPk);
 	}
