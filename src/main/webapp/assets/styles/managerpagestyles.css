@@ -17,3 +17,13 @@
 h3 {
     padding-top: 50px;
 }
+
+h1 {
+  text-align: center;
+  padding: 30px;
+}
+
+#buttons {
+  display: flex;
+  justify-content: space-around;
+}
