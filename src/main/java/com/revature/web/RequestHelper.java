@@ -62,11 +62,12 @@ public class RequestHelper {
 			throws IOException, ServletException {
 		// 1. set the content type to be application/json
 		response.setContentType("application/json");
+		response.addHeader("Access-Control-Allow-Origin", "*");
 		// response.setContentType("text/html");
 
 		// 2. Call the findAll() method from the employee service
 
-		List<User> emps = uServ.getAll();
+		List<User> emps = uServ.getAllEmps();
 		// 3. transform the list into a string
 		String jsonString = om.writeValueAsString(emps);
 		// write it out
@@ -222,22 +223,46 @@ public class RequestHelper {
 	public static void processGetFiledReimbursements(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		HttpSession session = request.getSession();
-
-		User u = (User) session.getAttribute("the-user");
-
 		response.setContentType("application/json");
 		response.addHeader("Access-Control-Allow-Origin", "*");
+		
+		PrintWriter pw = response.getWriter();
 
-		List<Reimbursement> userReims = rServ.getUserReimbursements(u.getId());
+		Gson gson = new Gson();
+		gson = new GsonBuilder().create();
+		JsonObject params = new JsonObject();
+		
 
-		// session.setAttribute("user-reimbursements", userReims);
+		try {
 
-		String jsonString = om.writeValueAsString(userReims);
+			JsonParser jsonParser = new JsonParser();
+			JsonElement root = jsonParser.parse(new InputStreamReader((InputStream) request.getInputStream()));
+			JsonObject jsonobj = root.getAsJsonObject();
 
-		PrintWriter out = response.getWriter();
+			int empId = (jsonobj.get("id").getAsInt());
+			
+			User u = uServ.findById(empId);
 
-		out.println(jsonString);
+			if (u.getId() > 0 ) {
+				
+				List<Reimbursement> userReims = rServ.getUserReimbursements(u.getId());
+				
+				System.out.println(userReims);
+
+				om.writeValue(pw, userReims);
+				
+				String jsonString = om.writeValueAsString(userReims);
+				pw.write(jsonString);
+			} else {
+
+				// send back a custom error code
+				params.addProperty("status", "process failed");
+				String jsonString = om.writeValueAsString(params);
+				pw.write(jsonString);
+			}
+		} catch (Exception e) {
+			
+		}
 	}
 
 	public static void processGetReimbursementsByStatus(HttpServletRequest request, HttpServletResponse response)
@@ -334,8 +359,6 @@ public class RequestHelper {
 			Reimbursement reim = rServ.findById(jsonobj.get("id").getAsInt());
 			
 			ReimbursementStatusEnum statusEnum = ReimbursementStatusEnum.valueOf(jsonobj.get("status").getAsString());
-			
-			
 			ReimbursementStatus status = new ReimbursementStatus(statusEnum);
 			
 			try {

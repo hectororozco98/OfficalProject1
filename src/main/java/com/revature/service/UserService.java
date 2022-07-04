@@ -34,11 +34,26 @@ public class UserService {
 		return (possibleEmp.isPresent() ? possibleEmp.get() : new User());
 		// ideally you should optimize this and set up a custom exception to be returned
 	}
+	
+	public User findById(int id) {
+		
+		Optional<User> possibleEmp = udao.findAll().stream()
+				.filter(u -> (u.getId() == id)).findFirst();
+		
+		logger.info("Searching for employee with id of " + id);
+		
+		return (possibleEmp.isPresent() ? possibleEmp.get() : new User());
+	}
 
 	public List<User> getAll() {
 
 		return udao.findAll();
 
+	}
+	
+	public List<User> getAllEmps() {
+
+		return udao.findAllEmps();
 	}
 
 	public int register(User u) {

@@ -25,6 +25,7 @@ const renderNewReimbursementElement = (id, amount, description, type) => {
   listRoot.append(newReimbursementElement);
 }
 
+
 const toggleReimbursementModal = () => {
 
     addReimbursementModal.classList.toggle('visible');
