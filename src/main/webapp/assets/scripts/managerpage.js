@@ -223,12 +223,22 @@ const createPendingTable = (reims) => {
     th6.innerHTML = "Submitted";
     th6.scope = "col";
 
+    let th7 = document.createElement('th');
+    th7.innerHTML = "";
+    th7.scope = "col";
+
+    let th8 = document.createElement('th');
+    th8.innerHTML = "";
+    th8.scope = "col";
+
     headerRow.appendChild(th1);
     headerRow.appendChild(th2);
     headerRow.appendChild(th3);
     headerRow.appendChild(th4);
     headerRow.appendChild(th5);
     headerRow.appendChild(th6);
+    headerRow.appendChild(th7);
+    headerRow.appendChild(th8);
 
 
     reimbursements.forEach(e => {
@@ -262,20 +272,24 @@ const createPendingTable = (reims) => {
         row.appendChild(td5);
 
 
+        let approveTD = document.createElement('td');
         let approveButton = document.createElement('button');
         approveButton.innerHTML = "Approve";
         approveButton.className = "btn btn-primary";
         approveButton.id = "action-reimbursement";
         approveButtons.push(approveButton);
+        approveTD.appendChild(approveButton);
 
+        let denyTD = document.createElement('td');
         let denyButton = document.createElement('button');
         denyButton.innerHTML = "Deny";
         denyButton.className = "btn btn-primary";
         denyButton.id = "action-reimbursement";
         denyButtons.push(denyButton);
+        denyTD.appendChild(denyButton);
 
-        row.appendChild(approveButton);
-        row.appendChild(denyButton);
+        row.appendChild(approveTD);
+        row.appendChild(denyTD);
 
 
         body.appendChild(row);
@@ -532,12 +546,17 @@ const createEmployeesTables = () => {
     th6.innerHTML = "Position";
     th6.scope = "col";
 
+    let th7 = document.createElement('th');
+    th7.innerHTML = "";
+    th7.scope = "col";
+
     headerRow.appendChild(th1);
     headerRow.appendChild(th2);
     headerRow.appendChild(th3);
     headerRow.appendChild(th4);
     headerRow.appendChild(th5);
     headerRow.appendChild(th6);
+    headerRow.appendChild(th7);
 
     emps.forEach(e => {
 
@@ -549,6 +568,7 @@ const createEmployeesTables = () => {
         let td3 = document.createElement('td');
         let td4 = document.createElement('td');
         let td5 = document.createElement('td');
+        let td6 = document.createElement('td');
 
         let empButton = document.createElement('button');
         empButton.innerHTML = "View Requests";
@@ -556,6 +576,7 @@ const createEmployeesTables = () => {
         empButton.id = "action-reimbursement";
         empButton.value = e.id;
         empButtons.push(empButton);
+        td6.appendChild(empButton);
 
 
         th1.innerHTML = e.id;
@@ -571,7 +592,7 @@ const createEmployeesTables = () => {
         row.appendChild(td3);
         row.appendChild(td4);
         row.appendChild(td5);
-        row.appendChild(empButton);
+        row.appendChild(td6);
 
 
 
@@ -587,143 +608,161 @@ const createEmployeeRequestsTable = (reims) => {
 
     reimTable = document.getElementById('reimbursements-table');
 
+    if (reimbursements.length == 0) {
+        alert("This user does not have any requests.");
+        createEmployeesTables();
+    } else {
 
-    let header = document.createElement('thead'); // these are HTML elements
-    let body = document.createElement('tbody');
-    let headerRow = document.createElement('tr');
-    let bodyRow = document.createElement('tr');
+        let header = document.createElement('thead'); // these are HTML elements
+        let body = document.createElement('tbody');
+        let headerRow = document.createElement('tr');
+        let bodyRow = document.createElement('tr');
 
-    header.appendChild(headerRow);
-    body.appendChild(bodyRow);
+        header.appendChild(headerRow);
+        body.appendChild(bodyRow);
 
-    reimTable.appendChild(header);
-    reimTable.appendChild(body);
+        reimTable.appendChild(header);
+        reimTable.appendChild(body);
 
-    let th1 = document.createElement('th');
-    th1.innerHTML = "ID";
-    th1.scope = "col";
-
-    let th2 = document.createElement('th');
-    th2.innerHTML = "Employee";
-    th2.scope = "col";
-
-    let th3 = document.createElement('th');
-    th3.innerHTML = "Type";
-    th3.scope = "col";
-
-    let th4 = document.createElement('th');
-    th4.innerHTML = "Description";
-    th4.scope = "col";
-
-    let th5 = document.createElement('th');
-    th5.innerHTML = "Amount";
-    th5.scope = "col";
-
-    let th6 = document.createElement('th');
-    th6.innerHTML = "Submitted";
-    th6.scope = "col";
-
-    let th7 = document.createElement('th');
-    th7.innerHTML = "Resolved By";
-    th7.scope = "col";
-
-    let th8 = document.createElement('th');
-    th8.innerHTML = "Resolved";
-    th8.scope = "col";
-
-    let th9 = document.createElement('th');
-    th9.innerHTML = "Status";
-    th9.scope = "col";
-
-    headerRow.appendChild(th1);
-    headerRow.appendChild(th2);
-    headerRow.appendChild(th3);
-    headerRow.appendChild(th4);
-    headerRow.appendChild(th5);
-    headerRow.appendChild(th6);
-    headerRow.appendChild(th7);
-    headerRow.appendChild(th8);
-    headerRow.appendChild(th9);
-
-    reimbursements.forEach(e => {
-
-        let row = document.createElement('tr');
         let th1 = document.createElement('th');
-        th1.scope = "row";
-        let td1 = document.createElement('td');
-        let td2 = document.createElement('td');
-        let td3 = document.createElement('td');
-        let td4 = document.createElement('td');
-        let td5 = document.createElement('td');
-        let td6 = document.createElement('td');
-        let td7 = document.createElement('td');
-        let td8 = document.createElement('td');
+        th1.innerHTML = "ID";
+        th1.scope = "col";
 
-        var d = new Date(0);
-        d.setUTCSeconds(e.submitted.epochSecond);
+        let th2 = document.createElement('th');
+        th2.innerHTML = "Employee";
+        th2.scope = "col";
 
-        if (e.statusId.reim_status == "APPROVED" || e.statusId.reim_status == "DENIED") {
+        let th3 = document.createElement('th');
+        th3.innerHTML = "Type";
+        th3.scope = "col";
 
-            var r = new Date(0);
-            r.setUTCSeconds(e.resolved.epochSecond);
-            td6.innerHTML = e.resolverId.firstName;
-        } else {
-            r = "Not Yet Resolved";
-            td6.innerHTML = "";
-        }
+        let th4 = document.createElement('th');
+        th4.innerHTML = "Description";
+        th4.scope = "col";
 
-        th1.innerHTML = e.id;
-        td1.innerHTML = e.authorId.firstName;
-        td2.innerHTML = e.typeId.reim_type;
-        td3.innerHTML = e.description;
-        td4.innerHTML = e.amount;
-        td5.innerHTML = d;
-        td7.innerHTML = r;
-        td8.innerHTML = e.statusId.reim_status;
+        let th5 = document.createElement('th');
+        th5.innerHTML = "Amount";
+        th5.scope = "col";
 
-        row.appendChild(th1);
-        row.appendChild(td1);
-        row.appendChild(td2);
-        row.appendChild(td3);
-        row.appendChild(td4);
-        row.appendChild(td5);
-        row.appendChild(td6);
-        row.appendChild(td7);
-        row.appendChild(td8);
+        let th6 = document.createElement('th');
+        th6.innerHTML = "Submitted";
+        th6.scope = "col";
 
-        if (e.statusId.reim_status == "PENDING") {
+        let th7 = document.createElement('th');
+        th7.innerHTML = "Resolved By";
+        th7.scope = "col";
 
-            pendingReimbursements.push(e);
+        let th8 = document.createElement('th');
+        th8.innerHTML = "Resolved";
+        th8.scope = "col";
 
-            let approveButton = document.createElement('button');
-            approveButton.innerHTML = "Approve";
-            approveButton.className = "btn btn-primary";
-            approveButton.id = "action-reimbursement";
-            approveButton.value = e.id;
-            approveButtons.push(approveButton);
-    
-            let denyButton = document.createElement('button');
-            denyButton.innerHTML = "Deny";
-            denyButton.className = "btn btn-primary";
-            denyButton.id = "action-reimbursement";
-            denyButton.value = e.id;
-            denyButtons.push(denyButton);
-    
-            row.appendChild(approveButton);
-            row.appendChild(denyButton);
-        }
+        let th9 = document.createElement('th');
+        th9.innerHTML = "Status";
+        th9.scope = "col";
+
+        let th10 = document.createElement('th');
+        th10.innerHTML = "";
+        th10.scope = "col";
+
+        let th11 = document.createElement('th');
+        th11.innerHTML = "";
+        th11.scope = "col";
+
+        headerRow.appendChild(th1);
+        headerRow.appendChild(th2);
+        headerRow.appendChild(th3);
+        headerRow.appendChild(th4);
+        headerRow.appendChild(th5);
+        headerRow.appendChild(th6);
+        headerRow.appendChild(th7);
+        headerRow.appendChild(th8);
+        headerRow.appendChild(th9);
+        headerRow.appendChild(th10);
+        headerRow.appendChild(th11);
+
+        reimbursements.forEach(e => {
+
+            let row = document.createElement('tr');
+            let th1 = document.createElement('th');
+            th1.scope = "row";
+            let td1 = document.createElement('td');
+            let td2 = document.createElement('td');
+            let td3 = document.createElement('td');
+            let td4 = document.createElement('td');
+            let td5 = document.createElement('td');
+            let td6 = document.createElement('td');
+            let td7 = document.createElement('td');
+            let td8 = document.createElement('td');
+            let td9 = document.createElement('td');
+            let td10 = document.createElement('td');
+
+            var d = new Date(0);
+            d.setUTCSeconds(e.submitted.epochSecond);
+
+            if (e.statusId.reim_status == "APPROVED" || e.statusId.reim_status == "DENIED") {
+
+                var r = new Date(0);
+                r.setUTCSeconds(e.resolved.epochSecond);
+                td6.innerHTML = e.resolverId.firstName;
+            } else {
+                r = "Not Yet Resolved";
+                td6.innerHTML = "";
+            }
+
+            th1.innerHTML = e.id;
+            td1.innerHTML = e.authorId.firstName;
+            td2.innerHTML = e.typeId.reim_type;
+            td3.innerHTML = e.description;
+            td4.innerHTML = e.amount;
+            td5.innerHTML = d;
+            td7.innerHTML = r;
+            td8.innerHTML = e.statusId.reim_status;
+
+            if (e.statusId.reim_status == "PENDING") {
+
+                pendingReimbursements.push(e);
+
+                let approveButton = document.createElement('button');
+                approveButton.innerHTML = "Approve";
+                approveButton.className = "btn btn-primary";
+                approveButton.id = "action-reimbursement";
+                approveButton.value = e.id;
+                approveButtons.push(approveButton);
+                td9.appendChild(approveButton);
+
+                let denyButton = document.createElement('button');
+                denyButton.innerHTML = "Deny";
+                denyButton.className = "btn btn-primary";
+                denyButton.id = "action-reimbursement";
+                denyButton.value = e.id;
+                denyButtons.push(denyButton);
+                td10.appendChild(denyButton);
+            }
+
+            row.appendChild(th1);
+            row.appendChild(td1);
+            row.appendChild(td2);
+            row.appendChild(td3);
+            row.appendChild(td4);
+            row.appendChild(td5);
+            row.appendChild(td6);
+            row.appendChild(td7);
+            row.appendChild(td8);
+            row.appendChild(td9);
+            row.appendChild(td10);
 
 
-        body.appendChild(row);
-    })
+            body.appendChild(row);
+        })
 
-    approveButtons.forEach(b => {
-        b.addEventListener('click', approveEmpReimbursement);
-    })
+        approveButtons.forEach(b => {
+            b.addEventListener('click', approveEmpReimbursement);
+        })
 
-    denyButtons.forEach(b => {
-        b.addEventListener('click', denyEmpReimbursement);
-    })
+        denyButtons.forEach(b => {
+            b.addEventListener('click', denyEmpReimbursement);
+        })
+    }
 }
 
 function fetchReimbursements(reimStatus) {
