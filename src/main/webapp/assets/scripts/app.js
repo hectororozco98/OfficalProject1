@@ -124,7 +124,7 @@ function viewUserReim() {
         getEmpReims(user);
 
 
-    }, 3000);
+    }, 2000);
 };
 
 function getEmpReims(data) {
