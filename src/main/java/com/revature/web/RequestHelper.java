@@ -215,7 +215,15 @@ public class RequestHelper {
 		pw.write(jsonString);
 
 	}
-
+	
+	public static void getUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		User u = (User) session.getAttribute("the-user");
+		String jsonString = om.writeValueAsString(u);
+		PrintWriter pw = response.getWriter();
+		pw.write(jsonString);
+	}
+	
 	public static void processGetFiledReimbursements(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 

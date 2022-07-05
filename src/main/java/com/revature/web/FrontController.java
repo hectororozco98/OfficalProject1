@@ -27,6 +27,9 @@ public class FrontController extends HttpServlet {
 		case "register":
 			RequestHelper.processRegistration(request, response);
 			break;
+		case "get-user":
+			RequestHelper.getUser(request, response);
+			break;
 		case "update":
 			RequestHelper.processUpdate(request, response);
 			break;
