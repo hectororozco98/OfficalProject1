@@ -109,7 +109,7 @@ public class RequestHelper {
 			HttpSession session = request.getSession();
 			session.setAttribute("the-user", u);
 
-			request.getRequestDispatcher("welcome.html").forward(request, response);
+			request.getRequestDispatcher("index.html").forward(request, response);
 		} else {
 			PrintWriter out = response.getWriter();
 
