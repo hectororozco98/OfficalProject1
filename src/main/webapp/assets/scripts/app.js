@@ -13,6 +13,8 @@ const table = document.getElementById('user-reims');
 
 let user;
 
+let reimTable = document.getElementById('user-reims');
+
 submitInfoButton.addEventListener('click', submitUpdate);
 submitReimButton.addEventListener('click', submitReim);
 viewButton.addEventListener('click', viewUserReim);
@@ -38,7 +40,6 @@ function fetchUser() {
 
 function showInfo(data) {
     user = data;
-    console.log(user)
 
     userInputsInfo[0].value = data.firstName
     userInputsInfo[1].value = data.lastName
@@ -110,15 +111,28 @@ function submitReim() {
 
 
 function viewUserReim() {
-    fetchUser();
-    getEmpReims();
-    createRequestsTable();
+
+    setTimeout(() => {
+
+        fetchUser();
+
+
+    }, 1000);
+
+    setTimeout(() => {
+
+        getEmpReims(user);
+
+
+    }, 3000);
 };
 
 function getEmpReims(data) {
 
     let hostname = window.location.hostname;
     let reimbursements = [];
+
+    console.log(data);
 
 
     fetch(`http://${hostname}:8080/official-project-one/view-filed-reimbursements`, {
@@ -160,6 +174,8 @@ function getEmpReims(data) {
 
         clearTable();
 
+        console.log(reimbursements);
+
         createRequestsTable(reimbursements);
     });
 }
@@ -168,7 +184,7 @@ const createRequestsTable = (reims) => {
 
     reimTable = document.getElementById('user-reims');
 
-    if (reimbursements.length == 0) {
+    if (reims.length == 0) {
         alert("This user does not have any requests.");
 
     } else {
@@ -240,7 +256,7 @@ const createRequestsTable = (reims) => {
         headerRow.appendChild(th10);
         headerRow.appendChild(th11);
 
-        reimbursements.forEach(e => {
+        reims.forEach(e => {
 
             let row = document.createElement('tr');
             let th1 = document.createElement('th');

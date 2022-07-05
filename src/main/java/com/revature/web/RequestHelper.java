@@ -135,21 +135,21 @@ public class RequestHelper {
 
 			session.setAttribute("the-user", u);
 
-//			PrintWriter out = response.getWriter();
-//			response.setContentType("text/html");
-
 			if (u.getUserType().getUser_type() == UserTypeEnum.EMPLOYEE) {
 
+				String jsonString = om.writeValueAsString(u);
+				PrintWriter out = response.getWriter();
+				out.write(jsonString);
+				
 				request.getRequestDispatcher("index.html").forward(request, response);
+				
 
 			} else if (u.getUserType().getUser_type() == UserTypeEnum.MANAGER) {
 				request.getRequestDispatcher("managerpage.html").forward(request, response);
 			}
 
 //			
-			String jsonString = om.writeValueAsString(u);
-			PrintWriter out = response.getWriter();
-			out.write(jsonString);
+			
 
 		} else {
 			PrintWriter out = response.getWriter();
