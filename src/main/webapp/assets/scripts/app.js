@@ -9,6 +9,7 @@ const reimSelect = reimbModal.querySelector('select');
 const submitInfoButton = exampleModal.querySelector('.btn.btn-success');
 const submitReimButton = reimbModal.querySelector('.btn.btn-success');
 const viewButton = document.getElementById('viewReimbs');
+const table = document.getElementById('user-reims');
 
 let user;
 
@@ -28,12 +29,17 @@ function fetchUser() {
         },
     }).then(function(response) {
         return response.json();
-    }).then(data => showInfo(data));
-
+    })
+    .then(data => showInfo(data))
+  
+     
+    
 };
 
 function showInfo(data) {
-   
+    user = data;
+    console.log(user)
+
     userInputsInfo[0].value = data.firstName
     userInputsInfo[1].value = data.lastName
     userInputsInfo[2].value = data.username
@@ -65,7 +71,7 @@ function updateUser() {
         }),
     })
         .then((response) => response.json())
-        .then((json) => console.log(json));
+
 };
 
 function submitUpdate() {
@@ -109,21 +115,23 @@ function viewUserReim() {
     createRequestsTable();
 };
 
-function getEmpReims(evt) {
-
+function getEmpReims(data) {
 
     let hostname = window.location.hostname;
-
-    reimbursements = [];
+    let reimbursements = [];
 
 
     fetch(`http://${hostname}:8080/official-project-one/view-filed-reimbursements`, {
 
-        method: 'GET',
+        method: 'POST',
         headers: {
             "Content-type": "application/json; charset=UTF-8",
-        }
+        },
+        body: JSON.stringify({
+            id: data.id
             
+        }),
+        
         })
     .then(function (response) {
         if (!response.ok) {
